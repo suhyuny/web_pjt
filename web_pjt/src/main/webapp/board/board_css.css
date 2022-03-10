@@ -84,8 +84,11 @@ thead{
 	position:relative;
 	height:50px;
 }
-#write_btn{
+#write_btn, #modify_btn{
 	position:absolute; 
 	bottom:0px; 
 	right:0px;
+}
+#subject, #content{
+	background-color:white;
 }
