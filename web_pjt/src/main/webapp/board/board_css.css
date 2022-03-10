@@ -1,0 +1,91 @@
+@charset "UTF-8";
+h1{
+	text-align:center;
+	margin-top:40px;
+	margin-bottom:30px;
+}
+h3{ /*로그인*/
+	text-align:right;
+	margin-top:10px; 
+	font-size:12px;
+}
+h3 a:link{ /*로그인*/
+	color:black;
+}
+h3 a:visited{
+	color:black;
+}
+header{
+	margin-bottom:15px;
+}
+a{ /*링크*/
+	text-decoration:none;
+}
+a:link{
+	color:#198754;
+}
+a:visited{
+	color:#198754;
+}
+article{ /*body부분 본문*/
+	position:relative;
+}
+h2{ /*본문 게시판명*/
+	width:200px;
+}
+.footer{ 
+	text-align:center;
+	font-size:8pt;
+}
+
+.nav-link{
+	color:#198754;
+}
+.nav-link:hover{
+   	background-color:#D0E7CB;
+	color: #198754;
+}
+.nav-pills>.nav-item>.active{
+	background-color: green;
+}
+#search{ /*검색버튼 그룹*/
+	text-align: right;
+	width:500px;
+	position:absolute;
+	right:0px;
+	top:10px;
+	font-size:9pt;
+}
+#searchsel{
+	position:absolute;
+	height:27px;
+	right:220px;
+}
+#searchbtn{
+	height:27px;
+}
+#searchbar{
+	position:absolute;
+	height:27px;
+	right:48px;
+	width:170px;
+}
+table{
+	text-align: center;
+	margin-bottom: 300px;
+}
+thead{
+	background-color: darkgray;
+}
+.container{
+	max-width: 800px;
+}
+#write_div{
+	position:relative;
+	height:50px;
+}
+#write_btn{
+	position:absolute; 
+	bottom:0px; 
+	right:0px;
+}
