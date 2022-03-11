@@ -31,29 +31,53 @@
 			</tr>
 			<tr>
 				<th scope="row">비밀번호</th>
-				<td><input type="password"></td>
+				<td><input type="password" class="form-control form-control-sm"></td>
+			</tr>
+			<tr>
+				<th scope="row">비밀번호 확인</th>
+				<td><input type="password" class="form-control form-control-sm"></td>
 			</tr>
 			<tr>
 				<th scope="row">이름</th>
-				<td><input type="text"></td>
+				<td><input type="text" class="form-control form-control-sm"></td>
 			</tr>
 			<tr>
 				<th scope="row">연락처</th>
-				<td><input type="text"></td>
+				<td>
+				<div class="row g-3">
+					<div class="col-sm">
+						<input type="text" class="form-control" maxlength="3">
+					</div>
+					<div class="col-sm">
+						<input type="text" class="form-control" maxlength="4">
+					</div>
+					<div class="col-sm">
+						<input type="text" class="form-control" maxlength="4">
+			 		</div>
+		 		</div>
+				</td>
 			</tr> 
 			<tr>
 				<th scope="row">주소</th>
-				<td><input type="text"></td>
+				<td><input type="text" class="form-control form-control-sm"></td>
 			</tr>   
 			<tr>
 				<th scope="row">이메일</th>
-				<td><input type="text"></td>
+				<td><input type="email" class="form-control form-control-sm"></td>
 			</tr>
 			<tr>
 				<th scope="row">이메일 광고 수신 동의</th>
 				<td>
-					<input type="radio" name="ad_agree" value="Y" checked>동의함
-					<input type="radio" name="ad_agree" value="N">동의하지 않음
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="ad_agree" value="Y">
+						<label class="form-check-label">동의함
+						</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="ad_agree" value="N">
+						<label class="form-check-label">동의하지 않음
+						</label>
+					</div>
 				</td>
 			</tr>
 			<tr>
