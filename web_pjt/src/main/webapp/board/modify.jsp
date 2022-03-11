@@ -13,12 +13,9 @@
 
 	<script src="<%= request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
 	<script>
-		$(function(){
-			$("td:nth-child(4n+1)").css("text-align","left");
-		});
 	</script>
  
-<title>자유 게시판 :: K-농부 커뮤니티</title>
+<title>게시글 수정 :: K-농부 커뮤니티</title>
 
 <div class="container">
 <%@ include file="header.jsp" %>
@@ -34,44 +31,32 @@
      
 <body>
 	<article>
-		<h2>자유 게시판</h2>
+		<h2>게시글 수정</h2><br>
 		<form>
-			<div id="search">
-				<select id="searchsel">
-					<option>전체</option>
-					<option>작성자</option>
-				</select>
-				<input type="text" id="searchbar" placeholder="검색어 입력">
-				<button type="submit" class="btn btn-outline-success btn-sm" id="searchbtn">검색</button>
-			</div><br>
-			<table class="table table-hover">
-				<thead>
-					<tr>
-						<th scope="col" width="65%" style="text-align:left;">내용</th>
-						<th scope="col" width="10%">작성자</th>
-						<th scope="col" width="10%">조회수</th>
-						<th scope="col" width="15%">작성일</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr class="notice table">
-						<td><a class="view_content" href="view_content.jsp">공지사항입니다.</a></td>
-						<td>관리자</td>
-						<td>100</td>
-						<td>2022-01-01</td>
-					</tr>
-					<tr>
-						<td>안녕하세요</td>
-						<td>김정아</td>
-						<td>12</td>
-						<td>09:23</td>
-					</tr>
-				</tbody>
-			</table>
+			<select class="form-select" aria-label="Default select example">
+				<option selected hidden>게시판을 선택해주세요</option>
+				<option value="1">자유게시판</option>
+				<option value="1">판매&홍보</option>
+				<option value="2">구매요청</option>
+				<option value="3">농부게시판</option>
+			</select><br>
+			<div class="mb-3">
+				<label for="subject" class="form-label">글 제목</label>
+				<input type="text" class="form-control" id="subject" value="#">
+			</div>
+			<div class="mb-3">
+				<label for="content" class="form-label">글 내용</label>
+				<textarea class="form-control" id="content" rows="15" style="resize:none;" value="#"></textarea>
+			</div>
+			<div class="mb-3">
+				<label for="formFileSm" class="form-label" style="font-size:11pt;">파일 첨부하기</label>
+				<input class="form-control form-control-sm" id="formFileSm" type="file">
+			</div>
 			<div id="write_div">
-				<button type="button" id="write_btn" class="btn btn-success" onclick="location.href='write_content.jsp'">글쓰기</button>
+				<button type="submit" id="write_btn" class="btn btn-success">수정하기</button>
 			</div>
 		</form>
+		
 		</article>
 <%@ include file="footer.jsp" %>
 </div><!-- container 끝 -->

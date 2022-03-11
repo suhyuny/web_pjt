@@ -4,21 +4,27 @@ h1{
 	margin-top:40px;
 	margin-bottom:30px;
 }
-h3{ /*로그인*/
+.container{
+	max-width: 800px;
+}
+/*상단 로그인, 회원가입*/
+h3{ 
 	text-align:right;
 	margin-top:10px; 
 	font-size:12px;
 }
-h3 a:link{ /*로그인*/
+h3 a:link{
 	color:black;
 }
 h3 a:visited{
 	color:black;
 }
+/*header*/
 header{
 	margin-bottom:15px;
 }
-a{ /*링크*/
+/*링크*/
+a{ 
 	text-decoration:none;
 }
 a:link{
@@ -37,8 +43,8 @@ h2{ /*본문 게시판명*/
 	text-align:center;
 	font-size:8pt;
 }
-
-.nav-link{
+/*상단 메뉴바*/
+.nav-link{ 
 	color:#198754;
 }
 .nav-link:hover{
@@ -46,9 +52,10 @@ h2{ /*본문 게시판명*/
 	color: #198754;
 }
 .nav-pills>.nav-item>.active{
-	background-color: green;
+	background-color: #198754;
 }
-#search{ /*검색버튼 그룹*/
+/*검색버튼 그룹*/
+#search{ 
 	text-align: right;
 	width:500px;
 	position:absolute;
@@ -70,25 +77,54 @@ h2{ /*본문 게시판명*/
 	right:48px;
 	width:170px;
 }
+/*글목록 공지배경색*/
+.notice{
+	background: #F2F2F2;
+}
+
+/*게시판 글목록, 댓글목록*/
 table{
 	text-align: center;
 	margin-bottom: 300px;
 }
 thead{
-	background-color: darkgray;
+	background-color: #D8D8D8;
 }
-.container{
-	max-width: 800px;
-}
+
+/*글하단 등록,삭제,수정버튼*/
 #write_div{
 	position:relative;
 	height:50px;
 }
-#write_btn, #modify_btn{
+#write_btn{
 	position:absolute; 
 	bottom:0px; 
 	right:0px;
 }
+#modify_btn{
+	position:absolute; 
+	right:93px;
+	bottom:0px;
+}
+#delete_btn{
+	position:absolute; 
+	right:0px;
+	bottom:0px;
+}
+/*댓글*/
+#reply{
+	font-size: 15pt;
+    font-weight: bold;
+}
+/*글보기 readonly*/
 #subject, #content{
 	background-color:white;
+}
+
+/*글 제목 링크*/
+.view_content:link{
+	color:black;
+}
+.view_content:visited{
+	color:black;
 }

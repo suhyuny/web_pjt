@@ -13,6 +13,9 @@
 
 	<script src="<%= request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
 	<script>
+		$(function(){
+			$("td:nth-child(3n+2)").css("text-align","left");
+		});
 	</script>
  
 <title>자유 게시판 :: K-농부 커뮤니티</title>
@@ -32,9 +35,17 @@
 <body>
 	<article>
 		<h2>자유게시판</h2><br>
-		<form>
-			<div class="mb-3">
-				<input type="text" class="form-control" id="subject" value="글 제목" readonly>
+		<form action="#" method="#">
+			<div class="mb-3 row g-3">
+				<div class="col-sm-8">
+					<input type="text" class="form-control" id="subject" value="글 제목" readonly>
+				</div>
+				<div class="col-sm">
+					<input type="text" class="form-control" value="조회수 100">
+				</div>
+				<div class="col-sm">
+					<input type="text" class="form-control" value="2022-01-01">
+				</div>
 			</div>
 			<div class="mb-3">
 				<textarea class="form-control" id="content" rows="15" style="resize:none;" readonly>
@@ -46,9 +57,41 @@
 				.
 				</textarea>
 			</div>
-			<div id="write_div">
-				<button type="button" id="modify_btn" class="btn btn-success">수정하기</button>
+			<div class="d-grid gap-2 d-md-block" id="write_div">
+				<button type="button" id="modify_btn" class="btn btn-success" onclick="location.href='modify.jsp'">수정하기</button>
+				<button type="button" id="delete_btn" class="btn btn-success">삭제하기</button>
 			</div>
+		</form>
+		<form action="#" method="#">
+		<p id="reply">댓글</p>
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col" width="10%">닉네임</th>
+						<th scope="col" width="75%">내용</th>
+						<th scope="col" width="15%">작성일</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>닉네임</th>
+						<td>감사합니다 안녕하세요 공지사항이네요
+						<button type="button" class="btn btn-sm btn-outline-secondary">수정</button>
+						<button type="button" class="btn btn-sm btn-outline-secondary">삭제</button>
+						</td>
+						<td>2022-01-01</td>
+					</tr>
+					<tr>
+						<td>닉네임</th>
+						<td>감사합니다 안녕하세요 공지사항이네요</td>
+						<td>2022-01-01</td>
+					</tr>
+				</tbody>
+			</table>
+		<div class="input-group mb-3">
+			<textarea class="form-control" placeholder="댓글을 입력해주세요." style="resize:none;"></textarea>
+			<button class="btn btn-outline-secondary" type="button" id="button-addon2">댓글 등록하기</button>
+		</div>
 		</form>
 		</article>
 <%@ include file="footer.jsp" %>

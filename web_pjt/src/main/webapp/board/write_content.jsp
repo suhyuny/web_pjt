@@ -33,7 +33,7 @@
 	<article>
 		<h2>게시글 작성</h2><br>
 		<form>
-			<select class="form-select" aria-label="Default select example">
+			<select class="form-select">
 				<option selected hidden>게시판을 선택해주세요</option>
 				<option value="1">자유게시판</option>
 				<option value="1">판매&홍보</option>
