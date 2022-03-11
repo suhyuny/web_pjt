@@ -44,24 +44,29 @@
 		color:#6c757d;
 	}
 	</style>
-<title>로그인 :: K-농부 커뮤니티</title> 
+<title>비밀번호 찾기 :: K-농부 커뮤니티</title> 
 </head>
 <body>
 <div class="container">
 <h1><a href="main.jsp">K-농부 커뮤니티</a></h1>
+<h2>비밀번호 찾기</h2>
 <form>
-    <div class="form-floating">
-      <input type="email" class="form-control" id="floatingId" placeholder="아이디">
+	<div class="form-floating">
+      <input type="text" class="form-control" id="floatingId" placeholder="아이디">
       <label>아이디</label>
     </div>
     <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" placeholder="비밀번호">
-      <label>비밀번호</label>
+      <input type="text" class="form-control" id="floatingName" placeholder="이름">
+      <label>이름</label>
     </div>
-    <button class="w-100 btn btn-lg btn-success" type="submit">로그인</button>
+    <div class="form-floating">
+      <input type="email" class="form-control" id="floatingEmail" placeholder="이메일">
+      <label>이메일</label>
+    </div>
+    <button class="w-100 btn btn-lg btn-success" type="submit">비밀번호 찾기</button>
     <div class="login_bottom">
-	    <a class="under" href="find_id.jsp">ID 찾기</a> |
-	    <a class="under" href="find_pw.jsp">비밀번호 찾기</a> |
+	    <a class="under" href="find_id.jsp">아이디 찾기</a> |
+	    <a class="under" href="login.jsp">로그인</a> |
 	    <a class="under" href="join.jsp">회원가입</a>
     </div>
     
