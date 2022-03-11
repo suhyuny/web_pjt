@@ -87,7 +87,7 @@ table{
 	text-align: center;
 	margin-bottom: 300px;
 }
-thead{
+#main_thead{
 	background-color: #D8D8D8;
 }
 
@@ -96,7 +96,7 @@ thead{
 	position:relative;
 	height:50px;
 }
-#write_btn{
+#write_btn, #delete_btn, #myedit_btn{
 	position:absolute; 
 	bottom:0px; 
 	right:0px;
@@ -104,11 +104,6 @@ thead{
 #modify_btn{
 	position:absolute; 
 	right:93px;
-	bottom:0px;
-}
-#delete_btn{
-	position:absolute; 
-	right:0px;
 	bottom:0px;
 }
 /*댓글*/

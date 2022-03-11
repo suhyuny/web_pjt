@@ -45,7 +45,7 @@
 				<button type="submit" class="btn btn-outline-success btn-sm" id="searchbtn">검색</button>
 			</div><br>
 			<table class="table table-hover">
-				<thead>
+				<thead id="main_thead">
 					<tr>
 						<th scope="col" width="65%" style="text-align:left;">내용</th>
 						<th scope="col" width="10%">작성자</th>
