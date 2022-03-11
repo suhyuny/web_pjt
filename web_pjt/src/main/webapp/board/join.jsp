@@ -3,107 +3,140 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>회원가입 :: K-농부 커뮤니티</title>
-<style>
-	form{
-		border:1px solid gray;
-		border-radius:5px;
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" 
+    	  integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+	<style>
+	.container{
 		width:500px;
-		margin:auto;
+	}
+	h4{
+		margin-top:50px;
+		font-size:23pt;
+	}
+	h5{
+		margin-bottom:50px;
+		font-size:14pt;
+	}
+	p{
+		color:#CA264C;
+	}
+	.btn-group{
+		margin:50px 0px;
+	}
+	#class, #ad_agree{
+	    padding-left: 0px;
+	}
+	.footer{ 
 		text-align:center;
-	}
-	table{
-		margin:auto;
-		border:1px solid gray;
-	}
-	th{
-		text-align:left;
-	}
-	td{
-		text-align:left;
-		height:30px;
-	}
-	span{
-		color:red;
-	}
-	input{
-		height:25px;
-	}
-	
-</style>
+		font-size:8pt;
+	}	
+	</style>
+ 
+<title>회원가입 :: K-농부 커뮤니티</title>
 </head>
 <body>
-	<form action="">
-		<h2>회원가입</h2>
-		<input type="radio" name="member_class">일반회원
-		<input type="radio" name="member_class">사업자회원
-		<table>
-		<tbody>
-			<tr>
-				<th>아이디<span> *</span></th>
-				<td>
-					<input type="text" name="id" placeholder="아이디를 입력하세요">
-					<button>ID중복확인</button>
-				</td>
-			</tr>
-			<tr>
-				<th>비밀번호<span> *</span></th>
-				<td>
-					<input type="password" name="pw1" placeholder="비밀번호를 입력하세요">
-				</td>
-			</tr>
-			<tr>
-				<th>비밀번호 확인<span> *</span></th>
-				<td>
-					<input type="password" name="pw2" placeholder="비밀번호를 다시 입력하세요">
-				</td>
-			</tr>
-			<tr>
-				<th>이름<span> *</span></th>
-				<td>
-					<input type="text" name="name" placeholder="성함을 입력하세요">
-				</td>
-			</tr>
-			<tr>
-				<th>연락처<span> *</span></th>
-				<td>
-					<input type="text" name="phone1" size="4" maxlength="3"> - 
-					<input type="text" name="phone2" size="4" maxlength="4"> - 
-					<input type="text" name="phone3" size="4" maxlength="4">
-				</td>
-			</tr>
-			<tr>
-				<th>주소<span> *</span></th>
-				<td>
-					<input type="text" name="addr" placeholder="주소를 입력하세요">
-					<button>우편번호 찾기</button>
-				</td>
-			</tr>
-			<tr>
-				<th>이메일<span> *</span></th>
-				<td>
-					<input type="email" name="email" placeholder="이메일을 입력하세요">
-				</td>
-			</tr>
-			<tr>
-				<th>광고 수신동의</th>
-				<td>
-					<input type="radio" name="ad_agree">동의함
-					<input type="radio" name="ad_agree">동의하지 않음
-				</td>
-			</tr>
-			<tr>
-				<th>사업자등록번호</th>
-				<td>
-					<input type="text" name="corNum" placeholder="사업자등록번호를 입력하세요">
-					<button>인증하기</button>
-				</td>
-			</tr>
-		</tbody>
-		</table>
-		<button value="submit">가입하기</button>
-		<button value="reset">취소</button>
-	</form>
+<div class="container">
+	<h4>회원가입</h4>
+	<h5>K-농부 커뮤니티에 오신 것을 환영합니다.</h5>
+	
+	<p>모두 입력해주세요.</p>
+	<div class="form-check form-check-inline mb-3" id="class">
+		<div>
+			<label for="join" class="form-label">회원 구분</label>
+		</div>
+		<div class="form-check form-check-inline">
+			<input class="form-check-input" type="radio" name="member_class" value="general" checked>
+			<label class="form-check-label" for="inlineRadio1">일반 회원</label>
+		</div>
+		<div class="form-check form-check-inline">
+			<input class="form-check-input" type="radio" name="member_class" value="corporation">
+			<label class="form-check-label" for="inlineRadio2">사업자 회원</label>
+		</div>
+	</div>
+
+	<div class="mb-0">
+		<label for="join" class="form-label">아이디</label>
+	</div>
+	<div class="input-group mb-3">
+		<input type="text" class="form-control" id="id" placeholder="아이디를 입력해주세요.">
+		<button class="btn btn-outline-secondary" type="button" id="id_btn">ID중복확인</button>
+	</div>
+	<div class="mb-3">
+		<label for="join" class="form-label">비밀번호</label>
+		<input type="password" class="form-control" id="pw1" placeholder="비밀번호를 입력해주세요.">
+	</div>
+	<div class="mb-3">
+		<label for="join" class="form-label">비밀번호 확인</label>
+		<input type="password" class="form-control" id="pw2" placeholder="비밀번호를 한번 더 입력해주세요.">
+	</div>
+	<div class="mb-3">
+		<label for="join" class="form-label">이름</label>
+		<input type="text" class="form-control" id="name" placeholder="성함을 입력해주세요.">
+	</div>
+	
+	<label for="join" class="form-label">연락처</label>
+	<div class="mb-3 row g-3">
+		<div class="col-sm">
+			<input type="text" class="form-control" placeholder="010" maxlength="3">
+		</div>
+		<div class="col-sm">
+			<input type="text" class="form-control" maxlength="4">
+		</div>
+		<div class="col-sm">
+			<input type="text" class="form-control" maxlength="4">
+ 		</div>
+	</div>
+	<div class="mb-3">
+		<label for="join" class="form-label">주소</label>
+		<input type="text" class="form-control" id="addr" placeholder="주소를 입력해주세요.">
+	</div>
+	<div class="mb-3">
+		<label for="join" class="form-label">이메일</label>
+		<input type="email" class="form-control" id="email" placeholder="이메일 주소를 입력해주세요.">
+	</div>
+	
+		<div class="form-check form-check-inline mb-3" id="ad_agree">
+		<div>
+			<label for="join" class="form-label">이메일 광고 수신 동의</label>
+		</div>
+		<div class="form-check form-check-inline">
+			<input class="form-check-input" type="radio" name="ad_agree" value="Y" checked>
+			<label class="form-check-label">동의함</label>
+		</div>
+		<div class="form-check form-check-inline">
+			<input class="form-check-input" type="radio" name="ad_agree" value="N">
+			<label class="form-check-label">동의하지 않음</label>
+		</div>
+	</div>
+	
+	<div class="mb-0">
+		<label for="join" class="form-label">사업자등록번호</label>
+	</div>
+	<div class="input-group mb-3">
+		<input type="text" class="form-control" id="corNum" placeholder="사업자등록번호를 입력해주세요. ( - 포함)">
+		<button class="btn btn-outline-secondary" type="button" id="id_btn">인증하기</button>
+	</div>
+	
+	<div class="btn-group" role="group">
+		<button type="submit" class="btn btn-success join_btn">가입하기</button>
+		<button type="button" class="btn btn-outline-success join_btn">취소하기</button>
+	</div>
+<%@ include file="footer.jsp" %>
+</div><!-- container 끝 -->
+<!-- Optional JavaScript; choose one of the two! -->
+
+<!-- Option 1: Bootstrap Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+<!-- Option 2: Separate Popper and Bootstrap JS -->
+<!--
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+-->
 </body>
 </html>
