@@ -50,6 +50,22 @@
 		font-size:8pt;
 	}	
 	</style>
+	
+	<script src="<%= request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
+	<script>
+		$(function(){
+			/*일반회원에 체크-사업자등록번호 비활성화*/
+			$("input:radio[name=memberClass]").click(function(){
+
+			if($("input[name=memberClass]:checked").val() == "G"){
+				$("input:text[name=memberCorNum]").attr("disabled",true);
+			}else if($("input[name=memberClass]:checked").val() == "C"){
+				$("input:text[name=memberCorNum]").attr("disabled",false);
+				}
+			});
+		});
+		
+	</script>
  
 <title>회원가입 :: K-농부 커뮤니티</title>
 </head>
@@ -60,16 +76,17 @@
 	<h5>K-농부 커뮤니티에 오신 것을 환영합니다.</h5>
 	
 	<p>모두 입력해주세요.</p>
+	<form action="join_process.jsp" method="post">
 	<div class="form-check form-check-inline mb-3" id="class">
 		<div>
 			<label for="join" class="form-label">회원 구분</label>
 		</div>
 		<div class="form-check form-check-inline">
-			<input class="form-check-input" type="radio" name="member_class" value="general" checked>
+			<input class="form-check-input" type="radio" name="memberClass" value="G" checked>
 			<label class="form-check-label" for="inlineRadio1">일반 회원</label>
 		</div>
 		<div class="form-check form-check-inline">
-			<input class="form-check-input" type="radio" name="member_class" value="corporation">
+			<input class="form-check-input" type="radio" name="memberClass" value="C">
 			<label class="form-check-label" for="inlineRadio2">사업자 회원</label>
 		</div>
 	</div>
@@ -78,41 +95,41 @@
 		<label for="join" class="form-label">아이디</label>
 	</div>
 	<div class="input-group mb-3">
-		<input type="text" class="form-control" id="id" placeholder="아이디를 입력해주세요.">
+		<input type="text" class="form-control" name="memberId" placeholder="아이디를 입력해주세요.">
 		<button class="btn btn-outline-secondary" type="button" id="id_btn">ID중복확인</button>
 	</div>
 	<div class="mb-3">
 		<label for="join" class="form-label">비밀번호</label>
-		<input type="password" class="form-control" id="pw1" placeholder="비밀번호를 입력해주세요.">
+		<input type="password" class="form-control" name="pw1" placeholder="비밀번호를 입력해주세요." value="">
 	</div>
 	<div class="mb-3">
 		<label for="join" class="form-label">비밀번호 확인</label>
-		<input type="password" class="form-control" id="pw2" placeholder="비밀번호를 한번 더 입력해주세요.">
+		<input type="password" class="form-control" name="pw2" placeholder="비밀번호를 한번 더 입력해주세요." value="">
 	</div>
 	<div class="mb-3">
 		<label for="join" class="form-label">이름</label>
-		<input type="text" class="form-control" id="name" placeholder="성함을 입력해주세요.">
+		<input type="text" class="form-control" name="memberName" placeholder="성함을 입력해주세요.">
 	</div>
 	
 	<label for="join" class="form-label">연락처</label>
 	<div class="mb-3 row g-3">
 		<div class="col-sm">
-			<input type="text" class="form-control" placeholder="010" maxlength="3">
+			<input type="text" name="phone1" class="form-control" placeholder="010" maxlength="3">
 		</div>
 		<div class="col-sm">
-			<input type="text" class="form-control" maxlength="4">
+			<input type="text" name="phone2" class="form-control" maxlength="4">
 		</div>
 		<div class="col-sm">
-			<input type="text" class="form-control" maxlength="4">
+			<input type="text" name="phone3" class="form-control" maxlength="4">
  		</div>
 	</div>
 	<div class="mb-3">
 		<label for="join" class="form-label">주소</label>
-		<input type="text" class="form-control" id="addr" placeholder="주소를 입력해주세요.">
+		<input type="text" class="form-control" name="memberAddr" placeholder="주소를 입력해주세요.">
 	</div>
 	<div class="mb-3">
 		<label for="join" class="form-label">이메일</label>
-		<input type="email" class="form-control" id="email" placeholder="이메일 주소를 입력해주세요.">
+		<input type="email" class="form-control" name="memberEmail" placeholder="이메일 주소를 입력해주세요.">
 	</div>
 	
 		<div class="form-check form-check-inline mb-3" id="ad_agree">
@@ -120,11 +137,11 @@
 			<label for="join" class="form-label">이메일 광고 수신 동의</label>
 		</div>
 		<div class="form-check form-check-inline">
-			<input class="form-check-input" type="radio" name="ad_agree" value="Y" checked>
+			<input class="form-check-input" type="radio" name="memberAdagree" value="Y" checked>
 			<label class="form-check-label">동의함</label>
 		</div>
 		<div class="form-check form-check-inline">
-			<input class="form-check-input" type="radio" name="ad_agree" value="N">
+			<input class="form-check-input" type="radio" name="memberAdagree" value="N">
 			<label class="form-check-label">동의하지 않음</label>
 		</div>
 	</div>
@@ -133,14 +150,15 @@
 		<label for="join" class="form-label">사업자등록번호</label>
 	</div>
 	<div class="input-group mb-3">
-		<input type="text" class="form-control" id="corNum" placeholder="사업자등록번호를 입력해주세요. ( - 포함)">
-		<button class="btn btn-outline-secondary" type="button" id="id_btn">인증하기</button>
+		<input type="text" class="form-control" name="memberCorNum" placeholder="사업자등록번호를 입력해주세요. ( - 포함)" disabled>
+		<button type="button" class="btn btn-outline-secondary" id="corNum_btn">인증하기</button>
 	</div>
 	
 	<div class="btn-group" role="group">
 		<button type="submit" class="btn btn-success join_btn">가입하기</button>
 		<button type="button" class="btn btn-outline-success join_btn">취소하기</button>
 	</div>
+	</form>
 <%@ include file="footer.jsp" %>
 </div><!-- container 끝 -->
 <!-- Optional JavaScript; choose one of the two! -->

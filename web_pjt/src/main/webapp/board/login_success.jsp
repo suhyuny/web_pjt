@@ -11,21 +11,23 @@
 		  crossorigin="anonymous">
 	<link rel="stylesheet" href="board_css.css">
 	<title>K-농부 커뮤니티</title>
-
+	<style>
+		.container{
+			text-align:center;
+		}
+		#a{
+			margin-top:30px;
+		}
+	</style>
 </head>
 <body>
 <div class="container">
 <%@ include file="header.jsp" %>
-	<header class="d-flex justify-content-center py-3">
-		<ul class="nav nav-pills">
-			<li class="nav-item"><a href="free_board.jsp" class="nav-link">자유게시판</a></li>
-			<li class="nav-item"><a href="#" class="nav-link">판매&홍보</a></li>
-			<li class="nav-item"><a href="#" class="nav-link">구매요청</a></li>
-			<li class="nav-item"><a href="#" class="nav-link">농부게시판</a></li>
-			<li class="nav-item"><a href="#" class="nav-link">공지사항</a></li>
-		</ul>
-	</header>
-	메인페이지
+	<h2 style="width:500px; margin:auto;">회원가입이 완료되었습니다.</h2>
+	<div id="a">
+		<a href="main.jsp">메인으로</a> |
+		<a href="login.jsp">로그인하기</a>
+	</div>
 	<!-- Optional JavaScript; choose one of the two! -->
 	
 	<!-- Option 1: Bootstrap Bundle with Popper -->

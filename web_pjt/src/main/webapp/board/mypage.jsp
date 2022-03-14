@@ -20,45 +20,66 @@
 
 </head>
 <body>
+
+	<jsp:useBean id="dto" class="member.MemberDto" />
+	<jsp:useBean id="dao" class="member.MemberDao" />
+
 <div class="container" style="width:600px;">
 <%@ include file="header.jsp" %>
+
+<%
+	/*session객체의 속성으로 저장해둔 id값을 가져와서 쿼리문 작성*/
+	id = (String)session.getAttribute("id");
+	dto	= dao.mypage(id, dto);
+%>
 	<h2>마이 페이지</h2>
 	<table class="table">
 		<tbody>
 			<tr>
 				<th scope="row" width="35%">아이디</th>
-				<td>josw</td>
-			</tr>
-			<tr>
-				<th scope="row">비밀번호</th>
-				<td>*****</td>
+				<td><%=dto.getMemberId() %></td>
 			</tr>
 			<tr>
 				<th scope="row">이름</th>
-				<td>조승우</td>
+				<td><%=dto.getMemberName() %></td>
 			</tr>
 			<tr>
 				<th scope="row">연락처</th>
-				<td>010-2315-0395</td>
+				<td><%=dto.getMemberPhone() %></td>
 			</tr> 
 			<tr>
 				<th scope="row">주소</th>
-				<td>전라북도 전주시 금암동 123-1 1층 롯데마트</td>
+				<td><%=dto.getMemberAddr() %></td>
 			</tr>   
 			<tr>
 				<th scope="row">이메일</th>
-				<td>jo@naver.com</td>
+				<td><%=dto.getMemberEmail() %></td>
 			</tr>
 			<tr>
 				<th scope="row">이메일 광고 수신 동의</th>
-				<td>
-					<input type="radio" name="ad_agree" value="Y">동의함
-					<input type="radio" name="ad_agree" value="N">동의하지 않음
+					<td><input type="radio" name="memberAdagree" value="Y" onclick="return false"
+					<%if (dto.getMemberAdagree().equals("Y")){
+						%>checked<%
+					}%> >동의함
+					
+					<input type="radio" name="memberAdagree" value="N" onclick="return false"
+					<%if (dto.getMemberAdagree().equals("N")){
+						%>checked<%
+					}%> >동의하지 않음
+					
 				</td>
 			</tr>
 			<tr>
-				<th scope="row">사업자등록번호</th>
-				<td>123-45-67890</td>
+				
+				<% 	String corNum = null;
+					if(dto.getMemberCorNum() == null){
+						corNum = "";
+					}else{
+						corNum = dto.getMemberCorNum(); %>
+						<th scope="row">사업자등록번호<td><%=corNum %></td></th>
+				<%	} %>
+				
+				
 			</tr>
 		</tbody>
 	</table>

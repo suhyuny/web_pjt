@@ -49,13 +49,13 @@
 <body>
 <div class="container">
 <h1><a href="main.jsp">K-농부 커뮤니티</a></h1>
-<form>
+<form action="login_process.jsp" method="post">
     <div class="form-floating">
-      <input type="email" class="form-control" id="floatingId" placeholder="아이디">
+      <input type="text" class="form-control" placeholder="아이디" name="memberId">
       <label>아이디</label>
     </div>
     <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" placeholder="비밀번호">
+      <input type="password" class="form-control" placeholder="비밀번호" name="memberPw">
       <label>비밀번호</label>
     </div>
     <button class="w-100 btn btn-lg btn-success" type="submit">로그인</button>
