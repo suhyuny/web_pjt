@@ -110,6 +110,7 @@ public class MemberDao {
 	    	pstmt.setString(3, dto.getMemberAddr());
 	    	pstmt.setString(4, dto.getMemberEmail());
 	    	pstmt.setString(5, dto.getMemberAdagree());
+	    	pstmt.setString(6, dto.getMemberId());
 	    	
 	    	pstmt.executeUpdate();
 	    	
