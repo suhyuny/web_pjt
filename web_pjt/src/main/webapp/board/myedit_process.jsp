@@ -23,7 +23,7 @@
 		out.println("<script>location.href='mypage.jsp'</script>");
 		
 	}else{
-		out.println("<script>alert('정보수정을 실패하였습니다.')</script>");
+		out.println("<script>alert('정보수정이 실패하였습니다.')</script>");
 		out.println("<script> history.back(); </script>");
 	}
 %>	

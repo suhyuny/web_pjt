@@ -37,7 +37,7 @@ article{ /*body부분 본문*/
 	position:relative;
 }
 h2{ /*본문 게시판명*/
-	width:200px;
+	width:250px;
 }
 .footer{ 
 	text-align:center;
@@ -104,6 +104,16 @@ table{
 #modify_btn{
 	position:absolute; 
 	right:93px;
+	bottom:0px;
+}
+#pwedit_btn{
+	position:absolute; 
+	right:125px;
+	bottom:0px;
+}
+#withdraw_btn{
+	position:absolute; 
+	left:0px;
 	bottom:0px;
 }
 /*댓글*/
