@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.io.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,37 +32,59 @@
 		<li class="nav-item"><a href="notice.jsp" class="nav-link">공지사항</a></li>
 	</ul>
 </header>
-     
 <body>
+
+<jsp:useBean id = " dao"  class="member.BoardDao"/>
+<jsp:useBean id = " dto"  class="member.BoardDto"/>
+
+<%
+	request.setCharacterEncoding("UTF-8");
+
+	String pageNum = request.getParameter("pageNum");
+	int boardIdx = Integer.parseInt(request.getParameter("boardIdx"));
+	dao.updateHits(boardIdx);
+	dto = dao.getPost(boardIdx);
+	
+%>
 	<article>
-		<h2>자유게시판</h2><br>
-		<form action="#" method="#">
+		<h2>자유 게시판</h2><br>
+			
+			<div class="col-sm">
+				<input type="text" class="form-control" id="subject" value="<%=dto.getBoardSbj() %>" readonly>
+			</div>
 			<div class="mb-3 row g-3">
-				<div class="col-sm-8">
-					<input type="text" class="form-control" id="subject" value="글 제목" readonly>
+				<div class="col-sm">
+					<input type="text" class="form-control" value="작성자 : <%=dto.getBoardWriter() %>" style="text-align:center; font-size:10pt;">
 				</div>
 				<div class="col-sm">
-					<input type="text" class="form-control" value="조회수 100">
+					<input type="text" class="form-control" value="조회수 : <%=dto.getBoardHits() %>" style="text-align:center; font-size:10pt;">
 				</div>
 				<div class="col-sm">
-					<input type="text" class="form-control" value="2022-01-01">
+					<input type="text" class="form-control" value="댓글수 : <%=dto.getBoardReply() %>" style="text-align:center; font-size:10pt;">
+				</div>
+				<div class="col-sm">
+					<input type="text" class="form-control" value="<%=dto.getBoardDate() %>" style="text-align:center; font-size:10pt;">
 				</div>
 			</div>
 			<div class="mb-3">
-				<textarea class="form-control" id="content" rows="15" style="resize:none;" readonly>
-				공지사항입니다.
-				.
-				.
-				.
-				.
-				.
-				</textarea>
+				<textarea class="form-control" id="content" rows="15" style="resize:none;" readonly><%=dto.getBoardContent() %></textarea>
+				
+<%				if(dto.getBoardFilename() != null){ %>
+						<div><img src="<%=request.getContextPath()+"/image/"+dto.getBoardFilename() %>" width="500px">
+				<% }
+				else {%><div><%} %>
+				</div>
 			</div>
-			<div class="d-grid gap-2 d-md-block" id="write_div">
-				<button type="button" id="modify_btn" class="btn btn-success" onclick="location.href='modify.jsp'">수정하기</button>
-				<button type="button" id="delete_btn" class="btn btn-success">삭제하기</button>
+		<div class="container">
+<%
+		if(id.equals(dto.getBoardId())){
+%>			<div class="d-grid gap-2 d-md-block" id="write_div">
+				<button type="button" id="modify_btn" class="btn btn-success" onclick="location.href='modifyBoard.jsp'">수정하기</button>
+				<button type="button" id="delete_btn" class="btn btn-success" onclick="window.location='deleteBoard.jsp?boardIdx=<%=boardIdx %>' ">삭제하기</button>
 			</div>
-		</form>
+<%		}
+%>
+			
 		<form action="#" method="#">
 		<p id="reply">댓글</p>
 			<table class="table">
@@ -74,7 +97,7 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>닉네임</th>
+						<td>닉네임</td>
 						<td>감사합니다 안녕하세요 공지사항이네요
 						<button type="button" class="btn btn-sm btn-outline-secondary">수정</button>
 						<button type="button" class="btn btn-sm btn-outline-secondary">삭제</button>
@@ -82,7 +105,7 @@
 						<td>2022-01-01</td>
 					</tr>
 					<tr>
-						<td>닉네임</th>
+						<td>닉네임</td>
 						<td>감사합니다 안녕하세요 공지사항이네요</td>
 						<td>2022-01-01</td>
 					</tr>
@@ -93,7 +116,7 @@
 			<button class="btn btn-outline-secondary" type="button" id="button-addon2">댓글 등록하기</button>
 		</div>
 		</form>
-		</article>
+	</article>
 <%@ include file="footer.jsp" %>
 </div><!-- container 끝 -->
 	

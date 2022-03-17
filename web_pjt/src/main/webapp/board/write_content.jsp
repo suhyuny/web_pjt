@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +15,10 @@
 	<script src="<%= request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
 	<script>
 	</script>
+	
+	<jsp:useBean id="dto" class="member.BoardDto" />
+	<jsp:setProperty name="dto" property="*" />
+	<jsp:useBean id="dao" class="member.BoardDao" />
  
 <title>자유 게시판 :: K-농부 커뮤니티</title>
 
@@ -30,27 +35,31 @@
 </header>
      
 <body>
+<% request.setCharacterEncoding("UTF-8"); %>
 	<article>
 		<h2>게시글 작성</h2><br>
-		<form>
-			<select class="form-select">
+		
+		<form method="post" action="write_content_process.jsp" enctype="multipart/form-data">
+			<!--  
+			select class="form-select" name="boardClass">
 				<option selected hidden>게시판을 선택해주세요</option>
 				<option value="1">자유게시판</option>
-				<option value="1">판매&홍보</option>
-				<option value="2">구매요청</option>
-				<option value="3">농부게시판</option>
-			</select><br>
+				<option value="2">판매&홍보</option>
+				<option value="3">구매요청</option>
+				<option value="4">농부게시판</option>
+			</select><br-->
+			<input type="hidden" name="boardId" value="<%= id%>">
 			<div class="mb-3">
 				<label for="subject" class="form-label">글 제목</label>
-				<input type="text" class="form-control" id="subject">
+				<input type="text" class="form-control" id="subject" name="boardSbj">
 			</div>
 			<div class="mb-3">
 				<label for="content" class="form-label">글 내용</label>
-				<textarea class="form-control" id="content" rows="15" style="resize:none;"></textarea>
+				<textarea class="form-control" id="content" name="boardContent" rows="15" style="resize:none;"></textarea>
 			</div>
 			<div class="mb-3">
 				<label for="formFileSm" class="form-label" style="font-size:11pt;">파일 첨부하기</label>
-				<input class="form-control form-control-sm" id="formFileSm" type="file">
+				<input class="form-control form-control-sm" name="boardFilename" id="formFileSm" type="file">
 			</div>
 			<div id="write_div">
 				<button type="submit" id="write_btn" class="btn btn-success">등록하기</button>

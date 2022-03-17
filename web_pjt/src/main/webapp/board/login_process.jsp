@@ -15,6 +15,7 @@
 	request.setCharacterEncoding("UTF-8");
 	String memberId = request.getParameter("memberId");
 	String memberPw = request.getParameter("memberPw");
+	String memberIdx = request.getParameter("memberIdx");
 	
 	String result = dao.login(memberId, memberPw);
 	
@@ -22,11 +23,12 @@
 	   //회원정보를 유지하기 위해 session객체 이용
 	   session.setAttribute("id", memberId);
 	   session.setAttribute("name", result);
+	   session.setAttribute("memberIdx", memberIdx);
 	   //main.jsp페이지로 이동
 	   response.sendRedirect("main.jsp");
    	}else{
 	   out.println("<script>alert('아이디나 비밀번호가 일치하지 않습니다.')</script>");
-       response.sendRedirect("login.jsp");
+	   out.println("<script>location.href='login.jsp'</script>");
   	}
 
 %>

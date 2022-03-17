@@ -13,10 +13,10 @@ h3{
 	margin-top:10px; 
 	font-size:12px;
 }
-h3 a:link{
+a:link{
 	color:black;
 }
-h3 a:visited{
+a:visited{
 	color:black;
 }
 /*header*/
@@ -27,10 +27,10 @@ header{
 a{ 
 	text-decoration:none;
 }
-a:link{
+h1 a:link{
 	color:#198754;
 }
-a:visited{
+h1 a:visited{
 	color:#198754;
 }
 article{ /*body부분 본문*/

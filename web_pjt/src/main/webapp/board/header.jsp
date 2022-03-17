@@ -6,7 +6,7 @@
 <%
 	String id = null;
 	String name = null;
-	if(session.getAttribute("id") != null){ 
+	if(session.getAttribute("id") != null){ //로그인함
 		id = (String)session.getAttribute("id"); 
 		name = (String)session.getAttribute("name");
 	}

@@ -108,7 +108,7 @@
 	</div>
 	<div class="mb-3">
 		<label for="join" class="form-label">이름</label>
-		<input type="text" class="form-control" name="memberName" placeholder="성함을 입력해주세요.">
+		<input type="text" class="form-control" name="memberName" placeholder="성함을 입력해주세요." maxlength="5">
 	</div>
 	
 	<label for="join" class="form-label">연락처</label>
