@@ -36,7 +36,21 @@
 	<table class="table">
 		<tbody>
 			<tr>
-				<th scope="row" width="35%">아이디</th>
+				<th scope="row" width="35%">회원구분</th>
+				<td>
+<% 				String mc = dto.getMemberClass();
+				if(mc.equals("G")){
+%>					일반회원
+<% 				}else if(mc.equals("C")){
+%>					사업자회원
+<%				}else if(mc.equals("M")){
+%>					관리자
+<%				}
+%>				
+				</td>
+			</tr>
+			<tr>
+				<th scope="row">아이디</th>
 				<td><%=dto.getMemberId() %></td>
 			</tr>
 			<tr>

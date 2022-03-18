@@ -14,7 +14,15 @@
 	<script src="<%= request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
 	<script>
 	</script>
- 
+	
+<jsp:useBean id ="dao" class="member.BoardDao"/>
+<jsp:useBean id ="dto" class="member.BoardDto"/>
+
+<%	
+	String boardIdx = request.getParameter("boardIdx");
+   	dto = dao.getPost(Integer.parseInt(boardIdx));
+%>
+
 <title>게시글 수정 :: K-농부 커뮤니티</title>
 
 <div class="container">
@@ -30,33 +38,42 @@
 </header>
      
 <body>
+<% 	
+	if(id.equals(dto.getBoardId())){
+%>
 	<article>
 		<h2>게시글 수정</h2><br>
-		<form>
-			<select class="form-select" aria-label="Default select example">
+		<form method="post" action="modifyBoard_process.jsp">
+		<input type="hidden" name="boardIdx" value="<%=boardIdx %>"/>
+		
+			<!-- select class="form-select" aria-label="Default select example">
 				<option selected hidden>게시판을 선택해주세요</option>
 				<option value="1">자유게시판</option>
 				<option value="1">판매&홍보</option>
 				<option value="2">구매요청</option>
 				<option value="3">농부게시판</option>
-			</select><br>
+			</select><br-->
 			<div class="mb-3">
 				<label for="subject" class="form-label">글 제목</label>
-				<input type="text" class="form-control" id="subject" value="#">
+				<input type="text" class="form-control" id="subject" name="boardSbj" value="<%=dto.getBoardSbj()%>">
 			</div>
 			<div class="mb-3">
 				<label for="content" class="form-label">글 내용</label>
-				<textarea class="form-control" id="content" rows="15" style="resize:none;" value="#"></textarea>
+				<textarea class="form-control" id="content" name="boardContent" rows="15" style="resize:none;"><%=dto.getBoardContent() %></textarea>
 			</div>
 			<div class="mb-3">
 				<label for="formFileSm" class="form-label" style="font-size:11pt;">파일 첨부하기</label>
-				<input class="form-control form-control-sm" id="formFileSm" type="file">
+				<input class="form-control form-control-sm" type="file" name="boardFilename" value="<%= dto.getBoardFilename()%>">
 			</div>
 			<div id="write_div">
 				<button type="submit" id="write_btn" class="btn btn-success">수정하기</button>
 			</div>
 		</form>
-		
+<%	}else{
+		 out.println("<script>alert('권한이 없습니다.')</script>");
+		 out.println("<script> history.back(); </script>");
+	}
+%>
 		</article>
 <%@ include file="footer.jsp" %>
 </div><!-- container 끝 -->

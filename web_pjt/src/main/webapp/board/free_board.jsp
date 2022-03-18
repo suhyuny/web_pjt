@@ -56,7 +56,7 @@
     List<BoardDto> articleList = null;
     
     if (totalNum > 0) {
-        articleList = dao.getPost(startRow, listSize * currPageNum);
+        articleList = dao.getPosts(startRow, listSize * currPageNum);
     }
     
     number = totalNum - (currPageNum - 1) * listSize;

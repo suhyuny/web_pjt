@@ -13,7 +13,7 @@
 
 <%
 	request.setCharacterEncoding("UTF-8");
-
+	
 	try{
 		String boardIdx = request.getParameter("boardIdx");
 		dao.delete(Integer.parseInt(boardIdx));

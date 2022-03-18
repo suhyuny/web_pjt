@@ -17,6 +17,21 @@
 		$(function(){
 			$("td:nth-child(3n+2)").css("text-align","left");
 		});
+		function replyReg(){
+			var replyWriter = dto.getBoardWriter();
+			var replyContent = document.getElementById("replyContent").innerHTML;
+			var replyContentIdx = dto.getBoardIdx();
+			
+			var request = new XMLHttpRequest();
+			request.onreadystatechange = function(){
+				if(request.readyState == 4 && request.status == 200){
+					document.getElementById("result").innerHTML = request.responseText;
+				}
+			}
+			request.open("POST","info.jsp",false);
+			request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			request.send("name="+name+"&age="+age+"&phone="+phone+"&addr="+addr);
+		}
 	</script>
  
 <title>자유 게시판 :: K-농부 커뮤니티</title>
@@ -79,13 +94,13 @@
 <%
 		if(id.equals(dto.getBoardId())){
 %>			<div class="d-grid gap-2 d-md-block" id="write_div">
-				<button type="button" id="modify_btn" class="btn btn-success" onclick="location.href='modifyBoard.jsp'">수정하기</button>
-				<button type="button" id="delete_btn" class="btn btn-success" onclick="window.location='deleteBoard.jsp?boardIdx=<%=boardIdx %>' ">삭제하기</button>
+				<button type="button" id="modify_btn" class="btn btn-success" onclick="window.location='modifyBoard.jsp?boardIdx=<%=boardIdx %>'">수정하기</button>
+				<button type="button" id="delete_btn" class="btn btn-success" onclick="window.location='deleteBoard.jsp?boardIdx=<%=boardIdx %>'">삭제하기</button>
 			</div>
 <%		}
 %>
 			
-		<form action="#" method="#">
+		<form>
 		<p id="reply">댓글</p>
 			<table class="table">
 				<thead>
@@ -99,21 +114,20 @@
 					<tr>
 						<td>닉네임</td>
 						<td>감사합니다 안녕하세요 공지사항이네요
-						<button type="button" class="btn btn-sm btn-outline-secondary">수정</button>
-						<button type="button" class="btn btn-sm btn-outline-secondary">삭제</button>
+							<button type="button" class="btn btn-sm btn-outline-secondary">수정</button>
+							<button type="button" class="btn btn-sm btn-outline-secondary">삭제</button>
 						</td>
-						<td>2022-01-01</td>
-					</tr>
-					<tr>
-						<td>닉네임</td>
-						<td>감사합니다 안녕하세요 공지사항이네요</td>
 						<td>2022-01-01</td>
 					</tr>
 				</tbody>
 			</table>
 		<div class="input-group mb-3">
-			<textarea class="form-control" placeholder="댓글을 입력해주세요." style="resize:none;"></textarea>
-			<button class="btn btn-outline-secondary" type="button" id="button-addon2">댓글 등록하기</button>
+			<input type="hidden" id="replyIdx">
+			<input type="hidden" id="replyWriter">
+			<textarea class="form-control" placeholder="댓글을 입력해주세요." style="resize:none;" id="replyContent"></textarea>
+			<input type="hidden" id="replyDate">
+			<input type="hidden" id="replyContentIdx">
+			<button class="btn btn-outline-secondary" type="button" onclick="replyReg()">댓글 등록하기</button>
 		</div>
 		</form>
 	</article>

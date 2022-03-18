@@ -19,12 +19,16 @@
 			margin-top:30px;
 		}
 	</style>
+<jsp:useBean id="dao" class="member.BoardDao"/>
+<jsp:useBean id="dto" class="member.BoardDto"/>
 </head>
 <body>
 <div class="container">
 <%@ include file="header.jsp" %>
 
- 
+<% 	
+	if(id.equals(dto.getBoardId())){
+%>
 	<h2 style="width:500px; margin:auto;">정말 게시글을 삭제하시겠습니까?</h2>
 	<form action="deleteBoard_process.jsp">
 	<input type="hidden" name="boardIdx" value="<%=request.getParameter("boardIdx") %>"/>
@@ -33,6 +37,12 @@
 			<button type="button" class="btn btn-success" onclick="location.href='free_board.jsp'">돌아가기</button>
 		</div>
 	</form>
+	
+<%	}else{
+		 out.println("<script>alert('권한이 없습니다.')</script>");
+		 out.println("<script> history.back(); </script>");
+	}
+%>	
 	<!-- Optional JavaScript; choose one of the two! -->
 	
 	<!-- Option 1: Bootstrap Bundle with Popper -->

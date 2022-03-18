@@ -20,7 +20,13 @@
 	int result = dao.myedit(dto);
 	if(result == 1){
 		out.println("<script>alert('정보수정이 완료되었습니다.')</script>");
-		out.println("<script>location.href='mypage.jsp'</script>");
+		//out.println("<script>location.href='mypage.jsp'</script>");
+		
+		String id = (String)session.getAttribute("id");
+		if(id != null){
+			session.invalidate();
+		}
+		pageContext.forward("main.jsp");
 		
 	}else{
 		out.println("<script>alert('정보수정이 실패하였습니다.')</script>");

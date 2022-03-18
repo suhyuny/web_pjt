@@ -25,7 +25,7 @@ public class BoardDao {
 		return conn;
 	}
 	
-	public int writeContent(BoardDto dto){
+	public int writeContent(BoardDto dto){ //게시글 등록
 		int result = 0;//0:게시글 입력 실패, 1:게시글 입력 성공
 		String sql = "insert into board_tb(board_idx, board_sbj, board_content, board_writer, board_date, board_filename, board_id) values(board_seq.nextval,?,?,?,sysdate,?,?)";
 		try(Connection conn = getConnection();
@@ -57,7 +57,7 @@ public class BoardDao {
 			if(rs != null) 
 				rs.next();
 
-			count=rs.getInt(1);
+			count = rs.getInt(1);
 			
 		}catch(Exception e){ e.printStackTrace(); }
 		
@@ -76,7 +76,7 @@ public class BoardDao {
 		}catch(Exception e){e.printStackTrace();}
 	}
 	
-	public List<BoardDto> getPost(int start, int end){
+	public List<BoardDto> getPosts(int start, int end){
 		List<BoardDto> articleList = null;
 		String sql = "SELECT * FROM ("
 				+ "	select ROWNUM r, board_idx, board_sbj, board_content, board_writer, board_date, board_hits, board_reply, board_filename, board_id"
@@ -147,15 +147,16 @@ public class BoardDao {
 		return dto;
 	}
 	
-	public void update(BoardDto dto){
-		String sql = "update board_tb set board_sbj=?,board_content=? where board_idx=?";//글번호에 대한 게시글을 업데이트하는 SQL문을 작성하시오.
+	public void update(BoardDto dto){ //게시글 수정
+		String sql = "update board_tb set board_sbj=?,board_content=?,board_filename=? where board_idx=?";//글번호에 대한 게시글을 업데이트하는 SQL문을 작성하시오.
 		try(Connection conn = getConnection();
-			PreparedStatement pstmt	=conn.prepareStatement(sql)){
+			PreparedStatement pstmt	= conn.prepareStatement(sql)){
 		
 			/* 구현하시오. */
 			pstmt.setString(1, dto.getBoardSbj());
 			pstmt.setString(2, dto.getBoardContent());
-			pstmt.setInt(3, dto.getBoardIdx());
+			pstmt.setString(3, dto.getBoardFilename());
+			pstmt.setInt(4, dto.getBoardIdx());
 			
 			pstmt.executeUpdate();
         

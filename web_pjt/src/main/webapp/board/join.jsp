@@ -48,12 +48,42 @@
 	.footer{ 
 		text-align:center;
 		font-size:8pt;
-	}	
+	}
+	#result{
+		font-size:10pt;
+	}
 	</style>
 	
 	<script src="<%= request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
 	<script>
 		$(function(){
+			
+			$("#idCheck").click(function(){
+				$.ajax({
+					type:"get",
+					url:"idcheck.jsp",
+					success:function(data){
+						var dataJson = JSON.parse(data.trim());
+						var existId = ""; //기존 memberId
+						var checkId = $("#memberId").val();
+						var flag = false;
+						
+						for(var i=0; i<dataJson.length; i++){
+							existId = dataJson[i].memberId;
+							if(checkId == existId){
+								$("#result").html("&nbsp;이미 사용중인 아이디입니다.");break;
+							}
+							else if(checkId != existId){
+								$("#result").html("&nbsp;사용 가능한 아이디입니다.");
+								flag = true;
+							}
+						}if(checkId == ""){
+							$("#result").html("&nbsp;아이디를 입력해주세요.");
+						}console.log(flag);
+					}
+				});//idCheck
+			});//jQuery
+			
 			/*일반회원에 체크-사업자등록번호 비활성화*/
 			$("input:radio[name=memberClass]").click(function(){
 
@@ -64,7 +94,7 @@
 				}
 			});
 		});
-		
+
 	</script>
  
 <title>회원가입 :: K-농부 커뮤니티</title>
@@ -92,12 +122,13 @@
 	</div>
 
 	<div class="mb-0">
-		<label for="join" class="form-label">아이디</label>
+		<label for="join" class="form-label">아이디<span id="result"></span></label>
 	</div>
 	<div class="input-group mb-3">
-		<input type="text" class="form-control" name="memberId" placeholder="아이디를 입력해주세요.">
-		<button class="btn btn-outline-secondary" type="button" id="id_btn">ID중복확인</button>
+		<input type="text" class="form-control" id="memberId" name="memberId" placeholder="아이디를 입력해주세요.">
+		<button class="btn btn-outline-secondary" type="button" id="idCheck">ID중복확인</button>
 	</div>
+	
 	<div class="mb-3">
 		<label for="join" class="form-label">비밀번호</label>
 		<input type="password" class="form-control" name="pw1" placeholder="비밀번호를 입력해주세요." value="">
@@ -151,7 +182,7 @@
 	</div>
 	<div class="input-group mb-3">
 		<input type="text" class="form-control" name="memberCorNum" placeholder="사업자등록번호를 입력해주세요. ( - 포함)" disabled>
-		<button type="button" class="btn btn-outline-secondary" id="corNum_btn">인증하기</button>
+		<!-- button type="button" class="btn btn-outline-secondary" id="corNum_btn" onclick="corAuth('this')">인증하기</button-->
 	</div>
 	
 	<div class="btn-group" role="group">

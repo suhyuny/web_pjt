@@ -69,7 +69,7 @@ public class MemberDao {
 	}
 	
 	public MemberDto mypage(String id, MemberDto dto) {
-	    String sql = "select member_id, member_name, member_phone, member_addr, member_email, member_adagree, member_corNum from member_tb where member_id=?";
+	    String sql = "select member_class, member_id, member_name, member_phone, member_addr, member_email, member_adagree, member_corNum from member_tb where member_id=?";
 	    try(Connection conn = getConnection();
 		    PreparedStatement pstmt = conn.prepareStatement(sql)){
 		    
@@ -77,6 +77,7 @@ public class MemberDao {
 		    ResultSet rs = pstmt.executeQuery();
 		    rs.next();
 		    
+		    dto.setMemberClass(rs.getString("member_class"));
 		    dto.setMemberId(rs.getString("member_id"));
 		    dto.setMemberName(rs.getString("member_name"));
 		    dto.setMemberPhone(rs.getString("member_phone"));
@@ -138,5 +139,5 @@ public class MemberDao {
 		}catch(Exception e) { e.printStackTrace(); }
     	
     	return result;
+		}
 	}
-}
