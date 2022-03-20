@@ -45,7 +45,6 @@
 		<h2>게시글 수정</h2><br>
 		<form method="post" action="modifyBoard_process.jsp">
 		<input type="hidden" name="boardIdx" value="<%=boardIdx %>"/>
-		
 			<!-- select class="form-select" aria-label="Default select example">
 				<option selected hidden>게시판을 선택해주세요</option>
 				<option value="1">자유게시판</option>

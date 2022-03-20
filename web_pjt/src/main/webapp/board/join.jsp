@@ -94,7 +94,103 @@
 				}
 			});
 		});
+	
+		function joinform_check(){
+			var mClassC = document.getElementById("mClassC");
+			var mId = document.getElementById("memberId");
+			var mPw1 = document.getElementById("mPw1");
+			var mPw2 = document.getElementById("mPw2");
+			var mName = document.getElementById("mName");
+			var mPhone1 = document.getElementById("mPhone1");
+			var mPhone2 = document.getElementById("mPhone2");
+			var mPhone3 = document.getElementById("mPhone3");
+			var mAddr = document.getElementById("mAddr");
+			var mEmail = document.getElementById("mEmail");
+			var mCorNum = document.getElementById("mCorNum");
+			
+			if (mId.value == "") { //해당 입력값이 없을 경우 같은말: if(!uid.value)
+			    alert("아이디를 입력하세요.");
+			    mId.focus(); //focus(): 커서가 깜빡이는 현상, blur(): 커서가 사라지는 현상
+			    return false; //return: 반환하다 return false:  아무것도 반환하지 말아라 아래 코드부터 아무것도 진행하지 말것
+			  }
 
+			  if (mPw1.value == "") {
+			    alert("비밀번호를 입력하세요.");
+			    mPw1.focus();
+			    return false;
+			  }
+			  
+			  if (mPw2.value == "") {
+			    alert("비밀번호를 다시 입력하세요.");
+			    mPw2.focus();
+			    return false;
+			  }
+
+			  //비밀번호 영문자+숫자+특수조합(8~25자리 입력) 정규식
+			  var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+
+			  if (!pwdCheck.test(mPw1.value)) {
+			    alert("비밀번호는 영문자+숫자+특수문자 조합으로 8~25자리 사용해야 합니다.");
+			    mPw1.focus();
+			    return false;
+			  }
+
+			  if (mPw1.value !== mPw2.value) {
+			    alert("비밀번호가 일치하지 않습니다.");
+			    mPw2.focus();
+			    return false;
+			  }
+
+			  if (mName.value == "") {
+			    alert("성함을 입력하세요.");
+			    mName.focus();
+			    return false;
+			  }
+
+			  var reg1 = /^[0-9]/g; //숫자만 입력하는 정규식
+			  var reg2 = /^[0-9]/g;
+			  var reg3 = /^[0-9]/g;
+			  
+			  if (!reg1.test(mPhone1.value)) {
+			    alert("전화번호는 숫자만 입력할 수 있습니다.");
+			    mPhone1.focus();
+			    return false;
+			  }
+			  if (!reg2.test(mPhone2.value)) {
+			    alert("전화번호는 숫자만 입력할 수 있습니다.");
+			    mPhone2.focus();
+			    return false;
+			  }
+			  if (!reg3.test(mPhone3.value)) {
+			    alert("전화번호는 숫자만 입력할 수 있습니다.");
+			    mPhone3.focus();
+			    return false;
+			  }
+			  
+			  if (mAddr.value == "") {
+				    alert("주소를 입력하세요.");
+				    mAddr.focus();
+				    return false;
+				  }
+			  
+			  var exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+			  if (exptext.test(mEmail.value) == false) {
+			    alert("이메일 형식이 올바르지 않습니다.");
+			    mEmail.focus();
+			    return false;
+			  }
+			  
+			  if(mClassC.checked){
+				  if(mCorNum.value==""){
+					  alert("사업자등록번호를 입력하세요.");
+				  		mCorNum.focus();
+				  		return false;
+				  }
+			  }
+			  //입력 값 전송
+			  document.join_form.submit(); //유효성 검사의 포인트   
+			
+		}
 	</script>
  
 <title>회원가입 :: K-농부 커뮤니티</title>
@@ -106,17 +202,17 @@
 	<h5>K-농부 커뮤니티에 오신 것을 환영합니다.</h5>
 	
 	<p>모두 입력해주세요.</p>
-	<form action="join_process.jsp" method="post">
+	<form name="join_form" action="join_process.jsp" method="post">
 	<div class="form-check form-check-inline mb-3" id="class">
 		<div>
 			<label for="join" class="form-label">회원 구분</label>
 		</div>
 		<div class="form-check form-check-inline">
-			<input class="form-check-input" type="radio" name="memberClass" value="G" checked>
+			<input class="form-check-input" type="radio" name="memberClass" value="G" id="mClassG" checked>
 			<label class="form-check-label" for="inlineRadio1">일반 회원</label>
 		</div>
 		<div class="form-check form-check-inline">
-			<input class="form-check-input" type="radio" name="memberClass" value="C">
+			<input class="form-check-input" type="radio" name="memberClass" value="C" id="mClassC">
 			<label class="form-check-label" for="inlineRadio2">사업자 회원</label>
 		</div>
 	</div>
@@ -131,36 +227,36 @@
 	
 	<div class="mb-3">
 		<label for="join" class="form-label">비밀번호</label>
-		<input type="password" class="form-control" name="pw1" placeholder="비밀번호를 입력해주세요." value="">
+		<input type="password" class="form-control" name="pw1" id="mPw1" placeholder="비밀번호를 입력해주세요." value="">
 	</div>
 	<div class="mb-3">
 		<label for="join" class="form-label">비밀번호 확인</label>
-		<input type="password" class="form-control" name="pw2" placeholder="비밀번호를 한번 더 입력해주세요." value="">
+		<input type="password" class="form-control" name="pw2" id="mPw2" placeholder="비밀번호를 한번 더 입력해주세요." value="">
 	</div>
 	<div class="mb-3">
 		<label for="join" class="form-label">이름</label>
-		<input type="text" class="form-control" name="memberName" placeholder="성함을 입력해주세요." maxlength="5">
+		<input type="text" class="form-control" name="memberName" id="mName" placeholder="성함을 입력해주세요." maxlength="5">
 	</div>
 	
 	<label for="join" class="form-label">연락처</label>
 	<div class="mb-3 row g-3">
 		<div class="col-sm">
-			<input type="text" name="phone1" class="form-control" placeholder="010" maxlength="3">
+			<input type="text" name="phone1" id="mPhone1" class="form-control" placeholder="010" maxlength="3">
 		</div>
 		<div class="col-sm">
-			<input type="text" name="phone2" class="form-control" maxlength="4">
+			<input type="text" name="phone2" id="mPhone2" class="form-control" maxlength="4">
 		</div>
 		<div class="col-sm">
-			<input type="text" name="phone3" class="form-control" maxlength="4">
+			<input type="text" name="phone3" id="mPhone3" class="form-control" maxlength="4">
  		</div>
 	</div>
 	<div class="mb-3">
 		<label for="join" class="form-label">주소</label>
-		<input type="text" class="form-control" name="memberAddr" placeholder="주소를 입력해주세요.">
+		<input type="text" class="form-control" id="mAddr" name="memberAddr" placeholder="주소를 입력해주세요.">
 	</div>
 	<div class="mb-3">
 		<label for="join" class="form-label">이메일</label>
-		<input type="email" class="form-control" name="memberEmail" placeholder="이메일 주소를 입력해주세요.">
+		<input type="email" class="form-control" id="mEmail" name="memberEmail" placeholder="이메일 주소를 입력해주세요.">
 	</div>
 	
 		<div class="form-check form-check-inline mb-3" id="ad_agree">
@@ -181,12 +277,12 @@
 		<label for="join" class="form-label">사업자등록번호</label>
 	</div>
 	<div class="input-group mb-3">
-		<input type="text" class="form-control" name="memberCorNum" placeholder="사업자등록번호를 입력해주세요. ( - 포함)" disabled>
-		<!-- button type="button" class="btn btn-outline-secondary" id="corNum_btn" onclick="corAuth('this')">인증하기</button-->
+		<input type="text" class="form-control" name="memberCorNum" id="mCorNum" placeholder="사업자등록번호를 입력해주세요. ( - 포함)" disabled>
+		<button type="button" class="btn btn-outline-secondary" id="corNum_btn" onclick="corAuth()">인증하기</button>
 	</div>
 	
 	<div class="btn-group" role="group">
-		<button type="submit" class="btn btn-success join_btn">가입하기</button>
+		<button type="button" class="btn btn-success join_btn" onclick="joinform_check()">가입하기</button>
 		<button type="button" class="btn btn-outline-success join_btn">취소하기</button>
 	</div>
 	</form>

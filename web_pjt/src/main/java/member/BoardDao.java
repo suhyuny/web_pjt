@@ -167,7 +167,7 @@ public class BoardDao {
 	public void delete(int boardIdx){
 		String sql = "delete from board_tb where board_idx=?";
 		try(Connection conn = getConnection();
-			PreparedStatement pstmt	=conn.prepareStatement(sql)){
+			PreparedStatement pstmt	= conn.prepareStatement(sql)){
 		
 		pstmt.setInt(1, boardIdx);
 	

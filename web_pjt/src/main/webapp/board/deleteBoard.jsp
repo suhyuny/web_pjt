@@ -19,8 +19,15 @@
 			margin-top:30px;
 		}
 	</style>
-<jsp:useBean id="dao" class="member.BoardDao"/>
-<jsp:useBean id="dto" class="member.BoardDto"/>
+
+<jsp:useBean id ="dao" class="member.BoardDao"/>
+<jsp:useBean id ="dto" class="member.BoardDto"/>
+
+<%	
+	String boardIdx = request.getParameter("boardIdx");
+   	dto = dao.getPost(Integer.parseInt(boardIdx));
+%>
+
 </head>
 <body>
 <div class="container">
@@ -30,7 +37,7 @@
 	if(id.equals(dto.getBoardId())){
 %>
 	<h2 style="width:500px; margin:auto;">정말 게시글을 삭제하시겠습니까?</h2>
-	<form action="deleteBoard_process.jsp">
+	<form method="post" action="deleteBoard_process.jsp">
 	<input type="hidden" name="boardIdx" value="<%=request.getParameter("boardIdx") %>"/>
 		<div class="d-grid gap-2 d-md-block">
 			<button type="submit" class="btn btn-success">삭제하기</button>
@@ -39,7 +46,7 @@
 	</form>
 	
 <%	}else{
-		 out.println("<script>alert('권한이 없습니다.')</script>");
+		 out.println("<script>alert('권한이 없습니다.');</script>");
 		 out.println("<script> history.back(); </script>");
 	}
 %>	

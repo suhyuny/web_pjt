@@ -92,7 +92,9 @@
 			</div>
 		<div class="container">
 <%
-		if(id.equals(dto.getBoardId())){
+		if(id == null){
+			
+		}else if(id.equals(dto.getBoardId())){
 %>			<div class="d-grid gap-2 d-md-block" id="write_div">
 				<button type="button" id="modify_btn" class="btn btn-success" onclick="window.location='modifyBoard.jsp?boardIdx=<%=boardIdx %>'">수정하기</button>
 				<button type="button" id="delete_btn" class="btn btn-success" onclick="window.location='deleteBoard.jsp?boardIdx=<%=boardIdx %>'">삭제하기</button>
