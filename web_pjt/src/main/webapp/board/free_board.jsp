@@ -76,9 +76,9 @@
 				<thead id="main_thead">
 					<tr>
 						<th scope="col" style="text-align:left;">내용</th>
-						<th scope="col" width="100px">작성자</th>
+						<th scope="col" width="90px">작성자</th>
 						<th scope="col" width="70px">조회수</th>
-						<th scope="col" width="120px">작성일</th>
+						<th scope="col" width="130px">작성일</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -91,6 +91,8 @@
 					<tr>
 						<td colspan="4">게시판에 올린 글이 없습니다. 글을 올려 주세요.</td>
 					</tr>
+					</tbody>
+			</table>
 
 <%
 				}else{
@@ -102,12 +104,14 @@
 %>
 					<tr>
 						<td><a href="view_content.jsp?boardIdx=<%=dto.getBoardIdx() %>"><%=dto.getBoardSbj() %></a></td>
-						<td><%=dto.getBoardWriter() %></td>
-						<td><%=dto.getBoardHits() %></td>
-						<td><%=dto.getBoardDate() %></td>
+						<td style="font-size:10pt;"><%=dto.getBoardWriter() %></td>
+						<td style="font-size:10pt;"><%=dto.getBoardHits() %></td>
+						<td style="font-size:10pt;"><%=boardDate %></td>
 					</tr>
 <%
 				}//for문의 닫힘 괄호
+				
+				
 %>
 				</tbody>
 			</table>
@@ -153,6 +157,7 @@
 %>
 </div>
 
+<div class="container">
 <%
 		if(id != null){ %>
 			<div id="write_div">

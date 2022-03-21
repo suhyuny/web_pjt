@@ -44,22 +44,50 @@
 		color:#6c757d;
 	}
 	</style>
+	
+	<script src="<%= request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
+	<script>
+	$(function(){
+		
+		$("#findId").click(function(){
+			$.ajax({
+				type:"get",
+				url:"findId_process.jsp",
+				data:$("form").serialize(),
+				success:function(data){
+					var memberId = data.trim();
+					
+					if(memberId == ""){
+						//$("#id").html("성함과 이메일과 일치하는 아이디가 없습니다.");
+						alert('일치하는 아이디가 없습니다.');
+					}else{
+						//$("#id").html("찾으신 아이디는 "+memberId+"입니다.");
+						alert('찾으신 아이디는 ['+memberId+']입니다.');
+					}
+					
+				}
+			});
+		});
+	});
+	</script>
+	
 <title>아이디 찾기 :: K-농부 커뮤니티</title> 
 </head>
 <body>
 <div class="container">
 <h1><a href="main.jsp">K-농부 커뮤니티</a></h1>
-<h2>아이디 찾기</h2>
+<h2 style="text-align:left; font-size:17pt;">아이디 찾기</h2>
 <form>
     <div class="form-floating">
-      <input type="text" class="form-control" id="floatingName" placeholder="이름">
+      <input type="text" class="form-control" id="memberName" name="memberName" placeholder="이름">
       <label>이름</label>
     </div>
     <div class="form-floating">
-      <input type="text" class="form-control" id="floatingPhone" placeholder="연락처">
-      <label>연락처</label>
+      <input type="email" class="form-control" id="memberEmail" name="memberEmail" placeholder="이메일">
+      <label>이메일</label>
     </div>
-    <button class="w-100 btn btn-lg btn-success" type="submit">아이디 찾기</button>
+    <button class="w-100 btn btn-lg btn-success" type="button" id="findId">아이디 찾기</button>
+    <span id="id"></span>
     <div class="login_bottom">
 	    <a class="under" href="find_pw.jsp">비밀번호 찾기</a> |
 	    <a class="under" href="login.jsp">로그인</a> |

@@ -44,26 +44,51 @@
 		color:#6c757d;
 	}
 	</style>
+	
+	<script src="<%= request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
+	<script>
+	$(function(){
+		
+		$("#findPw").click(function(){
+			$.ajax({
+				type:"get",
+				url:"findPw_process.jsp",
+				data:$("form").serialize(),
+				success:function(data){
+					var memberPw = data.trim();
+					
+					if(memberPw == ""){
+						alert('일치하는 비밀번호를 찾을 수 없습니다.');
+					}else{
+						alert('찾으신 비밀번호는 ['+memberPw+']입니다.');
+					}
+					
+				}
+			});
+		});
+	});
+	</script>
+	
 <title>비밀번호 찾기 :: K-농부 커뮤니티</title> 
 </head>
 <body>
 <div class="container">
 <h1><a href="main.jsp">K-농부 커뮤니티</a></h1>
-<h2>비밀번호 찾기</h2>
+<h2 style="text-align:left; font-size:17pt;">비밀번호 찾기</h2>
 <form>
 	<div class="form-floating">
-      <input type="text" class="form-control" id="floatingId" placeholder="아이디">
+      <input type="text" class="form-control" name="memberId" placeholder="아이디">
       <label>아이디</label>
     </div>
     <div class="form-floating">
-      <input type="text" class="form-control" id="floatingName" placeholder="이름">
+      <input type="text" class="form-control" name="memberName" placeholder="이름">
       <label>이름</label>
     </div>
     <div class="form-floating">
-      <input type="email" class="form-control" id="floatingEmail" placeholder="이메일">
+      <input type="email" class="form-control" name="memberEmail" placeholder="이메일">
       <label>이메일</label>
     </div>
-    <button class="w-100 btn btn-lg btn-success" type="submit">비밀번호 찾기</button>
+    <button class="w-100 btn btn-lg btn-success" type="button" id="findPw">비밀번호 찾기</button>
     <div class="login_bottom">
 	    <a class="under" href="find_id.jsp">아이디 찾기</a> |
 	    <a class="under" href="login.jsp">로그인</a> |

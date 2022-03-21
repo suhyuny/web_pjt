@@ -39,7 +39,7 @@
 	<h2 style="width:500px; margin:auto;">정말 게시글을 삭제하시겠습니까?</h2>
 	<form method="post" action="deleteBoard_process.jsp">
 	<input type="hidden" name="boardIdx" value="<%=request.getParameter("boardIdx") %>"/>
-		<div class="d-grid gap-2 d-md-block">
+		<div class="gap-2 d-md-block" style="margin-top:30px;">
 			<button type="submit" class="btn btn-success">삭제하기</button>
 			<button type="button" class="btn btn-success" onclick="location.href='free_board.jsp'">돌아가기</button>
 		</div>

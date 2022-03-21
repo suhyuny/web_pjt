@@ -79,10 +79,10 @@
 							}
 						}if(checkId == ""){
 							$("#result").html("&nbsp;아이디를 입력해주세요.");
-						}console.log(flag);
+						}
 					}
-				});//idCheck
-			});//jQuery
+				});//ajax
+			});//idCheck
 			
 			/*일반회원에 체크-사업자등록번호 비활성화*/
 			$("input:radio[name=memberClass]").click(function(){
@@ -93,7 +93,7 @@
 				$("input:text[name=memberCorNum]").attr("disabled",false);
 				}
 			});
-		});
+		});//jQuery
 	
 		function joinform_check(){
 			var mClassC = document.getElementById("mClassC");
@@ -283,7 +283,7 @@
 	
 	<div class="btn-group" role="group">
 		<button type="button" class="btn btn-success join_btn" onclick="joinform_check()">가입하기</button>
-		<button type="button" class="btn btn-outline-success join_btn">취소하기</button>
+		<button type="button" class="btn btn-outline-success join_btn" onclick="location.href='main.jsp'">취소하기</button>
 	</div>
 	</form>
 <%@ include file="footer.jsp" %>
