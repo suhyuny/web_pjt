@@ -122,22 +122,5 @@ public class MemberDao {
     	return result;
 	}
 	
-	public int pwedit(MemberDto dto) {
-		int result = 0; //0:회원정보 수정 실패
-		
-		String sql ="update member_tb set member_pw=? where member_id=?";
-		
-		try(Connection conn = getConnection(); //try~with resource구문 사용
-	    	PreparedStatement pstmt = conn.prepareStatement(sql)){
-			
-	    	pstmt.setString(1, dto.getMemberPw());
-	    	pstmt.setString(2, dto.getMemberId());
-	    	pstmt.executeUpdate();
-	    	
-	    	result = 1; //1:회원정보 수정 성공
-	    	
-		}catch(Exception e) { e.printStackTrace(); }
-    	
-    	return result;
-		}
-	}
+	
+}

@@ -29,6 +29,7 @@
 			
 			jArray.add(jObj);//jArray에 넣어줌
 		}
+		//out.print(rs.getString("member_id"));//화면에 출력
 		out.print(jArray.toJSONString());//화면에 출력
 		
 	}catch(Exception e){

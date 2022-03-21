@@ -77,6 +77,12 @@
 			font-size: 3.5rem;
 		}
 	}
+	.btn:link{
+		color:white;		
+	}
+	.btn:visited{
+		color:white;		
+	}
     </style>
 
     
@@ -116,7 +122,7 @@
           <div class="carousel-caption text-start">
             <h1>신선한 농산품을 직거래로</h1>
             <p>믿을 수 있는 농부가 직접 판매하는 농산품을 일대일로 구매하세요.</p>
-            <p><a class="btn btn-lg btn-primary" href="buy_board.jsp">판매&홍보 게시판</a></p>
+            <p><a class="btn btn-lg btn-success" href="#">판매&홍보 게시판</a></p>
           </div>
         </div>
       </div>
@@ -126,9 +132,9 @@
 		</svg>
         <div class="container">
           <div class="carousel-caption">
-            <h1>Another example headline.</h1>
-            <p>Some representative placeholder content for the second slide of the carousel.</p>
-            <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
+            <h1>나만 알고 있는 꿀팁을 다함께 공유해요!</h1>
+            <p>제철식품의 손질법, 요리법 등 서로가 알고 있던 정보를 함께 나누고 공유하세요.</p>
+            <p><a class="btn btn-lg btn-success" href="free_board.jsp">자유게시판</a></p>
           </div>
         </div>
       </div>
@@ -138,9 +144,9 @@
         </svg>
         <div class="container">
           <div class="carousel-caption text-end">
-            <h1>One more for good measure.</h1>
-            <p>Some representative placeholder content for the third slide of this carousel.</p>
-            <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
+            <h1>귀농이 처음이신가요?</h1>
+            <p>농사가 아직 서툰 초보 농사꾼들을 위한 정보 공유 커뮤니티에서 농사의 비결을 알아가세요.</p>
+            <p><a class="btn btn-lg btn-success" href="#">농부게시판</a></p>
           </div>
         </div>
       </div>
@@ -159,11 +165,11 @@
   <!-- Marketing messaging and featurettes
   ================================================== -->
   <!-- Wrap the rest of the page in another container to center all the content. -->
-
+  
   <div class="container marketing">
 
-    <!-- Three columns of text below the carousel -->
-    <div class="row">
+    <!-- Three columns of text below the carousel -->  
+ <!--   <div class="row">
       <div class="col-lg-4">
         <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
 
@@ -171,14 +177,14 @@
         <p>Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
         <p><a class="btn btn-secondary" href="#">View details »</a></p>
       </div><!-- /.col-lg-4 -->
-      <div class="col-lg-4">
+<!--      <div class="col-lg-4">
         <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
 
         <h2>Heading</h2>
         <p>Another exciting bit of representative placeholder content. This time, we've moved on to the second column.</p>
         <p><a class="btn btn-secondary" href="#">View details »</a></p>
       </div><!-- /.col-lg-4 -->
-      <div class="col-lg-4">
+ <!--     <div class="col-lg-4">
         <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#777" dy=".3em">140x140</text></svg>
 
         <h2>Heading</h2>
@@ -190,7 +196,7 @@
 
     <!-- START THE FEATURETTES -->
 
-    <hr class="featurette-divider">
+ <!--   <hr class="featurette-divider">
 
     <div class="row featurette">
       <div class="col-md-7">
@@ -234,23 +240,15 @@
     <!-- /END THE FEATURETTES -->
 
   </div><!-- /.container -->
-
-
+  
   <!-- FOOTER -->
-  <footer class="container">
+  <!-- footer class="container">
     <p class="float-end"><a href="#">Back to top</a></p>
     <p>© 2022 K-Farmer Company, Inc. · <a href="#">Privacy</a> · <a href="#">Terms</a></p>
-  </footer>
+  </footer-->
 </main>
 
-
     <script src="/docs/5.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
-      
-  
-
-
-
 
 	<!-- Optional JavaScript; choose one of the two! -->
 	

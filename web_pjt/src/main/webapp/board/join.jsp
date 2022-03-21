@@ -36,9 +36,6 @@
 		margin-bottom:50px;
 		font-size:14pt;
 	}
-	p{
-		color:#CA264C;
-	}
 	.btn-group{
 		margin:50px 0px;
 	}
@@ -50,7 +47,12 @@
 		font-size:8pt;
 	}
 	#result{
-		font-size:10pt;
+		color:#CA264C;
+		font-size:11pt;
+		font-weight:bold;
+	}
+	span{
+		font-size:9pt;
 	}
 	</style>
 	
@@ -62,23 +64,24 @@
 				$.ajax({
 					type:"get",
 					url:"idcheck.jsp",
+					data:$("#memberId").val(),
 					success:function(data){
+						
 						var dataJson = JSON.parse(data.trim());
 						var existId = ""; //기존 memberId
 						var checkId = $("#memberId").val();
-						var flag = false;
 						
 						for(var i=0; i<dataJson.length; i++){
 							existId = dataJson[i].memberId;
 							if(checkId == existId){
-								$("#result").html("&nbsp;이미 사용중인 아이디입니다.");break;
+								$("#result").html("&nbsp;이미 사용중인 아이디입니다.").css("color","#CA264C");break;
 							}
 							else if(checkId != existId){
-								$("#result").html("&nbsp;사용 가능한 아이디입니다.");
+								$("#result").html("&nbsp;사용 가능한 아이디입니다.").css("color","green");
 								flag = true;
 							}
 						}if(checkId == ""){
-							$("#result").html("&nbsp;아이디를 입력해주세요.");
+							$("#result").html("&nbsp;아이디를 입력해주세요.").css("color","#CA264C");
 						}
 					}
 				});//ajax
@@ -108,88 +111,110 @@
 			var mEmail = document.getElementById("mEmail");
 			var mCorNum = document.getElementById("mCorNum");
 			
+			
+			var idCheck = /^[a-zA-Z0-9]+$/;
+			
+			if(!idCheck.test(mId.value)){
+			alert("아이디는 영어와 숫자만 사용해야 합니다.");
+				mId.focus();
+				return false;
+			}
 			if (mId.value == "") { //해당 입력값이 없을 경우 같은말: if(!uid.value)
-			    alert("아이디를 입력하세요.");
+				alert("아이디를 입력하세요.");
 			    mId.focus(); //focus(): 커서가 깜빡이는 현상, blur(): 커서가 사라지는 현상
 			    return false; //return: 반환하다 return false:  아무것도 반환하지 말아라 아래 코드부터 아무것도 진행하지 말것
-			  }
+			}
 
-			  if (mPw1.value == "") {
+			if (mPw1.value == "") {
 			    alert("비밀번호를 입력하세요.");
 			    mPw1.focus();
 			    return false;
-			  }
+			}
 			  
-			  if (mPw2.value == "") {
+			if (mPw2.value == "") {
 			    alert("비밀번호를 다시 입력하세요.");
 			    mPw2.focus();
 			    return false;
-			  }
+			}
 
-			  //비밀번호 영문자+숫자+특수조합(8~25자리 입력) 정규식
-			  var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+			//비밀번호 영문자+숫자+특수조합(8~25자리 입력) 정규식
+			var pwCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
 
-			  if (!pwdCheck.test(mPw1.value)) {
+			if (!pwCheck.test(mPw1.value)) {
 			    alert("비밀번호는 영문자+숫자+특수문자 조합으로 8~25자리 사용해야 합니다.");
 			    mPw1.focus();
 			    return false;
-			  }
+			}
 
-			  if (mPw1.value !== mPw2.value) {
+			if (mPw1.value !== mPw2.value) {
 			    alert("비밀번호가 일치하지 않습니다.");
 			    mPw2.focus();
 			    return false;
-			  }
+			}
 
-			  if (mName.value == "") {
+			if (mName.value == "") {
 			    alert("성함을 입력하세요.");
 			    mName.focus();
 			    return false;
-			  }
+			}
 
-			  var reg1 = /^[0-9]/g; //숫자만 입력하는 정규식
-			  var reg2 = /^[0-9]/g;
-			  var reg3 = /^[0-9]/g;
+			var reg1 = /^[0-9]/g; //숫자만 입력하는 정규식
+			var reg2 = /^[0-9]/g;
+			var reg3 = /^[0-9]/g;
 			  
-			  if (!reg1.test(mPhone1.value)) {
+			if (!reg1.test(mPhone1.value)) {
 			    alert("전화번호는 숫자만 입력할 수 있습니다.");
 			    mPhone1.focus();
 			    return false;
-			  }
-			  if (!reg2.test(mPhone2.value)) {
+			}
+			if (!reg2.test(mPhone2.value)) {
 			    alert("전화번호는 숫자만 입력할 수 있습니다.");
 			    mPhone2.focus();
 			    return false;
-			  }
-			  if (!reg3.test(mPhone3.value)) {
+			}
+			if (!reg3.test(mPhone3.value)) {
 			    alert("전화번호는 숫자만 입력할 수 있습니다.");
 			    mPhone3.focus();
 			    return false;
-			  }
+			}
+			
+			if (mAddr.value == "") {
+				alert("주소를 입력하세요.");
+				mAddr.focus();
+				return false;
+			}
 			  
-			  if (mAddr.value == "") {
-				    alert("주소를 입력하세요.");
-				    mAddr.focus();
-				    return false;
-				  }
-			  
-			  var exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
-			  if (exptext.test(mEmail.value) == false) {
+			var exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+			
+			if (!exptext.test(mEmail.value)) {
 			    alert("이메일 형식이 올바르지 않습니다.");
 			    mEmail.focus();
 			    return false;
-			  }
-			  
-			  if(mClassC.checked){
-				  if(mCorNum.value==""){
-					  alert("사업자등록번호를 입력하세요.");
-				  		mCorNum.focus();
-				  		return false;
-				  }
-			  }
-			  //입력 값 전송
-			  document.join_form.submit(); //유효성 검사의 포인트   
+			}
 			
+			if (mEmail.value == "") {
+				alert("이메일 주소를 입력하세요.");
+				mEmail.focus();
+				return false;
+			}
+			  
+			if(mClassC.checked){
+				var cnCheck = /^\d{3}-\d{2}-\d{5}$/;
+				  
+				if(!cnCheck.test(mCorNum.value)){
+					alert("사업자등록번호 형식이 올바르지 않습니다.");
+					mCorNum.focus();
+					return false;
+				}
+				  
+				if(mCorNum.value==""){
+					alert("사업자등록번호를 입력하세요.");
+					mCorNum.focus();
+					return false;
+				}
+			}
+			//입력 값 전송
+			document.join_form.submit(); //유효성 검사의 포인트   
 		}
 	</script>
  
@@ -218,15 +243,15 @@
 	</div>
 
 	<div class="mb-0">
-		<label for="join" class="form-label">아이디<span id="result"></span></label>
+		<label for="join" class="form-label">아이디<span>&nbsp;&nbsp;영문자와 숫자만 입력해주세요.</span></label>
 	</div>
 	<div class="input-group mb-3">
 		<input type="text" class="form-control" id="memberId" name="memberId" placeholder="아이디를 입력해주세요.">
 		<button class="btn btn-outline-secondary" type="button" id="idCheck">ID중복확인</button>
 	</div>
-	
+	<p id="result"></p>
 	<div class="mb-3">
-		<label for="join" class="form-label">비밀번호</label>
+		<label for="join" class="form-label">비밀번호<span>&nbsp;&nbsp;영문자+숫자+특수문자 조합으로 8~25자리를 입력해주세요.</span></label>
 		<input type="password" class="form-control" name="pw1" id="mPw1" placeholder="비밀번호를 입력해주세요." value="">
 	</div>
 	<div class="mb-3">
@@ -241,7 +266,7 @@
 	<label for="join" class="form-label">연락처</label>
 	<div class="mb-3 row g-3">
 		<div class="col-sm">
-			<input type="text" name="phone1" id="mPhone1" class="form-control" placeholder="010" maxlength="3">
+			<input type="text" name="phone1" id="mPhone1" class="form-control" value="010" maxlength="3">
 		</div>
 		<div class="col-sm">
 			<input type="text" name="phone2" id="mPhone2" class="form-control" maxlength="4">
@@ -274,11 +299,10 @@
 	</div>
 	
 	<div class="mb-0">
-		<label for="join" class="form-label">사업자등록번호</label>
+		<label for="join" class="form-label">사업자등록번호<span>&nbsp;&nbsp;사업자회원만 입력하세요.</span></label>
 	</div>
 	<div class="input-group mb-3">
 		<input type="text" class="form-control" name="memberCorNum" id="mCorNum" placeholder="사업자등록번호를 입력해주세요. ( - 포함)" disabled>
-		<button type="button" class="btn btn-outline-secondary" id="corNum_btn" onclick="corAuth()">인증하기</button>
 	</div>
 	
 	<div class="btn-group" role="group">

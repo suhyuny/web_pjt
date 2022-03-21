@@ -20,7 +20,9 @@
 	<script src="<%= request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
 	<script>
 	$(function(){
-		var flag = false;
+		var flag;
+		var realPw = "";
+		var nowPw = "";
 		
 		$("#nowPw").blur(function(){
 			$.ajax({
@@ -28,8 +30,8 @@
 				url:"nowPw.jsp",
 				data:$("form").serialize(),
 				success:function(data){
-					var realPw = data.trim();
-					var nowPw = $("#nowPw").val();
+					realPw = data.trim();
+					nowPw = $("#nowPw").val();
 					
 					if(realPw == nowPw){
 						$("#nowPw").css("borderColor","green");
@@ -37,28 +39,43 @@
 					}else if(realPw != nowPw){
 						$("#nowPw").css("borderColor","red");
 						flag = false;
-					}console.log(flag);
+					}
+					
 				}
-			});
+			});//ajax
+			
 		});//nowPw
-		
+			
 		$("#pwedit_btn").click(function(){
-			$.ajax({
-				type:"get",
-				url:"pwedit_process.jsp",
-				data:$("form").serialize(),
-				success:function(data){
-					if(flag == true && data.trim() == "비밀번호가 일치하지 않습니다."){
-						alert(data);
-					}else if(flag == true){
+			var newPw1 = $("#newPw1").val();
+			var newPw2 = $("#newPw2").val();
+			var newPw = "";
+			
+			var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+			  
+			if((realPw == nowPw) && (newPw1 == newPw2)){
+				newPw = newPw1;
+				if (!pwdCheck.test(newPw)) {
+					alert("비밀번호는 영문자+숫자+특수문자 조합으로 8~25자리 사용해야 합니다.");
+				    return false;
+				}
+				$.ajax({
+					type:"get",
+					url:"pwedit_process.jsp",
+					data:$("form").serialize(),
+					success:function(data){
 						alert(data);
 						location.href="logout_process.jsp";
-					}else if(flag == false){
-						alert('현재 비밀번호가 다릅니다.');
 					}
-				}
-			});
+				});//ajax
+				
+			}else if(realPw != nowPw){
+				alert('현재 비밀번호가 일치하지 않습니다.');
+			}else if(newPw1 != newPw2){
+				alert('변경할 비밀번호가 일치하지 않습니다.');
+			}
 		});
+		
 	});//jQuery
 	</script>
 	
@@ -71,7 +88,7 @@
 <%@ include file="header.jsp" %>
 	<h2>비밀번호 변경</h2>
 	<form method="post" action="pwedit_process.jsp">
-	
+	<p>비밀번호는 영문자+숫자+특수문자 조합으로 8~25자리 사용해야 합니다.</p>
 	<table class="table">
 		<tbody>
 			<tr>
@@ -80,11 +97,11 @@
 			</tr>
 			<tr>
 				<th scope="row">변경할 비밀번호</th>
-				<td><input type="password" class="form-control form-control-sm" name="newPw1"></td>
+				<td><input type="password" class="form-control form-control-sm" id="newPw1" name="newPw1"></td>
 			</tr>
 			<tr>
 				<th scope="row">비밀번호 확인</th>
-				<td><input type="password" class="form-control form-control-sm" name="newPw2"></td>
+				<td><input type="password" class="form-control form-control-sm" id="newPw2" name="newPw2"></td>
 			</tr>
 		</tbody>
 	</table>

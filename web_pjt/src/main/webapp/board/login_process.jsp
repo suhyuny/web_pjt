@@ -27,7 +27,7 @@
 	   //main.jsp페이지로 이동
 	   response.sendRedirect("main.jsp");
    	}else{
-	   out.println("<script>alert('아이디나 비밀번호가 일치하지 않습니다.')</script>");
+	   out.println("<script>alert('아이디 또는 비밀번호가 일치하지 않습니다.')</script>");
 	   out.println("<script>location.href='login.jsp'</script>");
   	}
 
