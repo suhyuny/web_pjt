@@ -17,22 +17,55 @@
 	    margin: auto;
 	}
 	</style>
+	<script src="<%= request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
+	<script>
+	$(function(){
+		var flag = false;
+		
+		$("#nowPw").blur(function(){
+			$.ajax({
+				type:"get",
+				url:"nowPw.jsp",
+				data:$("form").serialize(),
+				success:function(data){
+					var realPw = data.trim();
+					var nowPw = $("#nowPw").val();
+					
+					if(realPw == nowPw){
+						$("#nowPw").css("borderColor","green");
+						flag = true;
+					}else if(realPw != nowPw){
+						$("#nowPw").css("borderColor","red");
+						flag = false;
+					}console.log(flag);
+				}
+			});
+		});//nowPw
+		
+		$("#pwedit_btn").click(function(){
+			$.ajax({
+				type:"get",
+				url:"pwedit_process.jsp",
+				data:$("form").serialize(),
+				success:function(data){
+					if(flag == true && data.trim() == "비밀번호가 일치하지 않습니다."){
+						alert(data);
+					}else if(flag == true){
+						alert(data);
+						location.href="logout_process.jsp";
+					}else if(flag == false){
+						alert('현재 비밀번호가 다릅니다.');
+					}
+				}
+			});
+		});
+	});//jQuery
+	</script>
+	
 	<title>비밀번호 변경 :: K-농부 커뮤니티</title>
 
 </head>
 <body>
-
-<%
-	String memberId = (String)session.getAttribute("id");
-	
-	Connection conn = DBConnection.getConnection();
-    String sql = "select member_pw from member_tb where member_id=?";
-    PreparedStatement pstmt = conn.prepareStatement(sql);
-    pstmt.setString(1, memberId);
-    ResultSet rs = pstmt.executeQuery();
-    rs.next();
-
-%>
 
 <div class="container" style="width:600px;">
 <%@ include file="header.jsp" %>
@@ -43,7 +76,7 @@
 		<tbody>
 			<tr>
 				<th scope="row">현재 비밀번호</th>
-				<td><input type="password" class="form-control form-control-sm" name="nowPw"></td>
+				<td><input type="password" class="form-control form-control-sm" id="nowPw" name="nowPw"></td>
 			</tr>
 			<tr>
 				<th scope="row">변경할 비밀번호</th>
@@ -56,7 +89,7 @@
 		</tbody>
 	</table>
 	<div id="write_div">
-		<button type="submit" id="myedit_btn" class="btn btn-success">수정하기</button>
+		<button type="button" id="pwedit_btn" class="btn btn-success">수정하기</button>
 	</div>
 	</form>
 	<!-- Optional JavaScript; choose one of the two! -->

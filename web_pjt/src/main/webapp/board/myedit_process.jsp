@@ -19,17 +19,11 @@
 <%
 	int result = dao.myedit(dto);
 	if(result == 1){
-		out.println("<script>alert('정보수정이 완료되었습니다.')</script>");
-		//out.println("<script>location.href='mypage.jsp'</script>");
-		
-		String id = (String)session.getAttribute("id");
-		if(id != null){
-			session.invalidate();
-		}
-		pageContext.forward("main.jsp");
+		out.println("<script>alert('정보수정이 완료되었습니다. 다시 로그인해주세요.')</script>");
+		out.println("<script>location.href='logout_process.jsp'</script>");
 		
 	}else{
-		out.println("<script>alert('정보수정이 실패하였습니다.')</script>");
+		out.println("<script>alert('정보수정을 실패하였습니다.')</script>");
 		out.println("<script> history.back(); </script>");
 	}
 %>	
