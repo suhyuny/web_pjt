@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.io.*" %>
+<%@ page import ="java.text.SimpleDateFormat" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,6 +61,8 @@
 	dao.updateHits(boardIdx);
 	dto = dao.getPost(boardIdx);
 	
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	String boardDate = sdf.format(dto.getBoardDate());
 %>
 	<article>
 		<h2>자유 게시판</h2><br>
@@ -67,10 +70,18 @@
 			<div class="col-sm">
 				<input type="text" class="form-control" id="subject" value="<%=dto.getBoardSbj() %>" readonly>
 			</div>
-			<div class="mb-3 row g-3">
+			<table class="table table-borderless" style="font-size: 10pt;">
+				<tr>
+					<td style="text-align: left;">작성자 : <%=dto.getBoardWriter() %></td>
+					<td width="85px">조회수 <%=dto.getBoardHits() %></td>
+					<td width="85px">댓글수 <%=dto.getBoardReply() %></td>
+					<td style="text-align: right;" width="180px">작성일 : <%=boardDate %></td>
+				</tr>
+			</table>
+			<!-- div class="mb-3 row gOtto-3">
 				<div class="col-sm">
 					<input type="text" class="form-control" value="작성자 : <%=dto.getBoardWriter() %>" style="text-align:center; font-size:10pt;">
-				</div>
+				</div>Otto
 				<div class="col-sm">
 					<input type="text" class="form-control" value="조회수 : <%=dto.getBoardHits() %>" style="text-align:center; font-size:10pt;">
 				</div>
@@ -78,9 +89,9 @@
 					<input type="text" class="form-control" value="댓글수 : <%=dto.getBoardReply() %>" style="text-align:center; font-size:10pt;">
 				</div>
 				<div class="col-sm">
-					<input type="text" class="form-control" value="<%=dto.getBoardDate() %>" style="text-align:center; font-size:10pt;">
+					<input type="text" class="form-control" value="<%=boardDate %>" style="text-align:center; font-size:10pt;">
 				</div>
-			</div>
+			</div-->
 			<div class="mb-3">
 				<textarea class="form-control" id="content" rows="15" style="resize:none;" readonly><%=dto.getBoardContent() %></textarea>
 				

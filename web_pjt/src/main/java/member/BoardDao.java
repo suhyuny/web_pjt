@@ -46,13 +46,25 @@ public class BoardDao {
         return result;
 	}
 	
-	public int countHits(){
-		int count = 0;
-		String sql = "select count(board_idx) from board_tb";
+	public void updateHits(int num) { //조회수
+		String sql = "update board_tb set board_hits=(board_hits+1) where board_idx=?";
+		try(Connection conn = getConnection();
+			PreparedStatement pstmt	=conn.prepareStatement(sql)){
 		
-		try(Connection con = getConnection();
-			PreparedStatement pstmt	=con.prepareStatement(sql);
-			ResultSet rs= pstmt.executeQuery()){
+		pstmt.setInt(1, num);
+		
+        pstmt.executeUpdate();
+        
+		}catch(Exception e){e.printStackTrace();}
+	}
+
+	public int countArticles(){ //총 게시글 수
+		int count = 0;
+		String sql = "select count(*) from board_tb";
+		
+		try(Connection conn = getConnection();
+			PreparedStatement pstmt	=conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery()){
 			
 			if(rs != null) 
 				rs.next();
@@ -64,31 +76,19 @@ public class BoardDao {
 		return count;
 	}
 	
-	public void updateHits(int num) {
-		String sql = "update board_tb set board_hits=(board_hits+1) where board_idx=?";
-		try(Connection conn = getConnection();
-			PreparedStatement pstmt	=conn.prepareStatement(sql)){
-		
-		pstmt.setInt(1, num);
-		
-        pstmt.executeUpdate();
-        
-		}catch(Exception e){e.printStackTrace();}
-	}
-	
-	public List<BoardDto> getPosts(int start, int end){
+	public List<BoardDto> getArticles(int start, int end){
 		List<BoardDto> articleList = null;
-		String sql = "SELECT * FROM ("
-				+ "	select ROWNUM r, board_idx, board_sbj, board_content, board_writer, board_date, board_hits, board_reply, board_filename, board_id"
-				+ "	from board_tb order by board_idx DESC)"
-				+ " where r >= ?  and r <= ? ";
+		String sql = "SELECT * FROM "
+				+ "(select ROWNUM r, board_idx, board_sbj, board_content, board_writer, board_date, board_hits, board_reply, board_filename, board_id"
+				+ "	from (select * from board_tb order by board_idx DESC))"
+				+ " where r between ? and ?";
 		try(Connection conn = getConnection();
-			PreparedStatement pstmt	=conn.prepareStatement(sql)){
+			PreparedStatement pstmt	= conn.prepareStatement(sql)){
 			
 			pstmt.setInt(1, start);
 			pstmt.setInt(2, end);
 			
-			ResultSet rs= pstmt.executeQuery();
+			ResultSet rs = pstmt.executeQuery();
 			
 			if(rs != null) 
 				articleList = new ArrayList<BoardDto>();

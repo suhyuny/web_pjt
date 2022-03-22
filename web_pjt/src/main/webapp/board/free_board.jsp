@@ -16,8 +16,39 @@
 	<script>
 		$(function(){
 			$("td:nth-child(4n+1)").css("text-align","left");
+			
+			$("#searchbtn").click(function(){
+				$.ajax({
+					type:"get",
+					url:"search.jsp",
+					data:$("form").serialize(),
+					success:function(data){
+						realPw = data.trim();
+						nowPw = $("#nowPw").val();
+						
+						if(realPw == nowPw){
+							$("#nowPw").css("borderColor","green");
+							flag = true;
+						}else if(realPw != nowPw){
+							$("#nowPw").css("borderColor","red");
+							flag = false;
+						}
+						
+					}
+				});//ajax
+			});//searchbtn
 		});
 	</script>
+	<style>
+		#pLink{
+			background:#D0E7CB;
+			border-color:#D0E7CB;
+			color:black;
+		}
+		#pNLink:hover, #next:hover, #prev:hover{
+			color:#198754;
+		}
+	</style>
  
 <title>자유 게시판 :: K-농부 커뮤니티</title>
 
@@ -39,27 +70,26 @@
 	request.setCharacterEncoding("utf-8");
 
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-    
+	
     String pageNum = request.getParameter("pageNum");
-    if (pageNum == null) {
+    if (pageNum == null || pageNum.length() == 0) {
         pageNum = "1";
     }
     
+    int totalNum = 0;
     int listSize = 10;//화면에 표시할 게시글 숫자
-    int totalNum = dao.countHits();//DB에 저장된 총 게시글 숫자
+    totalNum = dao.countArticles();//DB에 저장된 총 게시글 숫자
     
     int currPageNum = Integer.parseInt(pageNum);//현재 페이지의 네비게이션 번호
 	int startRow = (currPageNum - 1) * listSize + 1;//게시글 출력시 시작번호
     int endRow = currPageNum * listSize;//게시글 출력시 끝번호
-    int number = 0;//화면에 표시할 글번호
     
     List<BoardDto> articleList = null;
     
     if (totalNum > 0) {
-        articleList = dao.getPosts(startRow, listSize * currPageNum);
+        articleList = dao.getArticles(startRow, endRow);
     }
     
-    number = totalNum - (currPageNum - 1) * listSize;
 %>
 	<article>
 		<h2>자유 게시판</h2>
@@ -70,8 +100,9 @@
 					<option>작성자</option>
 				</select>
 				<input type="text" id="searchbar" placeholder="검색어 입력">
-				<button type="submit" class="btn btn-outline-success btn-sm" id="searchbtn">검색</button>
+				<button type="button" class="btn btn-outline-success btn-sm" id="searchbtn" onclick="search()">검색</button>
 			</div><br>
+		</form>
 			<table class="table table-hover">
 				<thead id="main_thead">
 					<tr>
@@ -86,75 +117,70 @@
 				<jsp:useBean id="dto" class="member.BoardDto"/>
 <%
 
-				if(articleList == null){
-%>	
-					<tr>
-						<td colspan="4">게시판에 올린 글이 없습니다. 글을 올려 주세요.</td>
-					</tr>
-					</tbody>
-			</table>
+				if(totalNum > 0){
+					int number = totalNum - (currPageNum - 1) * listSize;
+					
+					for(int i=0; i<articleList.size(); i++){
+					   dto = (BoardDto) articleList.get(i);
+					   String boardDate = sdf.format(dto.getBoardDate());
+	%>
+						<tr>
+							<td><a href="view_content.jsp?boardIdx=<%=dto.getBoardIdx() %>&pageNum=<%= currPageNum%>"><%=dto.getBoardSbj() %></a></td>
+							<td style="font-size:10pt;"><%=dto.getBoardWriter() %></td>
+							<td style="font-size:10pt;"><%=dto.getBoardHits() %></td>
+							<td style="font-size:10pt;"><%=boardDate %></td>
+						</tr>
+<%					}//for문의 닫힘 괄호
 
-<%
-				}else{
-	
-	
-				for(int i=0; i<articleList.size(); i++){
-				   dto = (BoardDto) articleList.get(i);
-				   String boardDate = sdf.format(dto.getBoardDate());
+				}else{	
 %>
 					<tr>
-						<td><a href="view_content.jsp?boardIdx=<%=dto.getBoardIdx() %>"><%=dto.getBoardSbj() %></a></td>
-						<td style="font-size:10pt;"><%=dto.getBoardWriter() %></td>
-						<td style="font-size:10pt;"><%=dto.getBoardHits() %></td>
-						<td style="font-size:10pt;"><%=boardDate %></td>
+						<td colspan="4" align="center">게시판에 올린 글이 없습니다. 글을 올려 주세요.</td>
 					</tr>
 <%
-				}//for문의 닫힘 괄호
-				
-				
-%>
+				}
+%>					
 				</tbody>
 			</table>
 
 <div id="paging" style="text-align:center;">
+<nav aria-label="Page navigation example">
+	<ul class="pagination justify-content-center">
 <%
-	int navSize = 5;//화면에 표시할 페이지 네비게이션 숫자
-	int startNum = (currPageNum/navSize)*navSize + 1;//페이지 네비게이션 시작 번호 
-	int endNum = 5;//페이지 네비게이션 끝 번호
-	int totalNavNum = ((totalNum % listSize) == 0)? (totalNum/listSize):(totalNum/listSize)+1;//총 네비게이션 번호
-	
-    if(totalNavNum < 6){//총 네비게이션 번호가 5이하인 경우
-        for (int i = startNum; i <= totalNavNum; i++){
-%>
-        <a href="free_board.jsp?pageNum=<%=i%>"> <%=i%> </a>&nbsp;
-<%
-        }
-    }else{//총 네비게이션 번호가 6 이상인 경우
-
-    	if((startNum + navSize) <= totalNavNum){//네비게이션 시작번호와 네비게이션 표시 개수를 더한 값이 네비게이션 총 개수보다 작거나 같은 경우 
-    		endNum = startNum + navSize-1;
-    	}else{ endNum = totalNavNum; }	
+    if(totalNum > 0){//총 네비게이션 번호가 10이하인 경우
+        int pageCount = totalNum / listSize + (totalNum%listSize == 0 ? 0 : 1);
+    	int pageBlock = 10; //한 페이지에 보여줄 시작, 끝번호
+    	int startNum = ((currPageNum-1)/pageBlock)*pageBlock+1;
+    	int endNum = startNum + pageBlock - 1;
     	
-        if(startNum > navSize){
+    	if(endNum > pageCount){
+    		endNum = pageCount;
+    	}
+    	
+    	if(startNum > pageBlock){
 %>
-        	<a href="free_board.jsp?pageNum=<%= (startNum-navSize) %>"> &lt;이전&nbsp;</a> 
-<%   
-        }
-        
-		for (int i = startNum; i <= endNum; i++){
-%>        
-           <a href="free_board.jsp?pageNum=<%= i %>"> <%= i %> </a>&nbsp;
+		<li class="page-item"><a class="page-link" id="prev" href="free_board.jsp?pageNum=<%=startNum-10%>">이전</a></li>
 <%
         }
-        
-        if(endNum < totalNavNum){
-%>
-            <a href="free_board.jsp?pageNum=<%= (endNum+1) %>"> 다음&gt; </a>
-<% 
-         }
+		for(int i = startNum; i<=endNum; i++){ //페이지 블록 번호
+			if(i == currPageNum){ //현재페이지는 링크 설정하지 않음
+%>				
+				<li class="page-item active"><a class="page-link" id="pLink" href="#"><%= i%></a></li>
+<%			}else{ //현재페이지 아닌 경우 링크 설정함
+%>			
+				<li class="page-item"><a class="page-link" id="pNLink" href="free_board.jsp?pageNum=<%= i %>"><%= i%></a></li>
+<%			}
+		}
+    	if(endNum < pageCount){//네비게이션 시작번호와 네비게이션 표시 개수를 더한 값이 네비게이션 총 개수보다 작거나 같은 경우 
+%>   	
+			<li class="page-item"><a class="page-link" id="next" href="free_board.jsp?pageNum=<%= startNum+10 %>">다음</a></li>
+<%	
+    	}
     }
-}//else문의 닫힘 괄호
+
 %>
+	</ul>
+</nav>
 </div>
 
 <div class="container">
@@ -166,7 +192,7 @@
 <% 		}%>
 		
 			
-		</form>
+		
 		</article>
 <%@ include file="footer.jsp" %>
 </div><!-- container 끝 -->
