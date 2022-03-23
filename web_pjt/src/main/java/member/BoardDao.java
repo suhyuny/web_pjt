@@ -76,12 +76,16 @@ public class BoardDao {
 		return count;
 	}
 	
-	public List<BoardDto> getArticles(int start, int end){
+	public List<BoardDto> getArticles(int start, int end, String searchOption, String searchInput){
 		List<BoardDto> articleList = null;
 		String sql = "SELECT * FROM "
 				+ "(select ROWNUM r, board_idx, board_sbj, board_content, board_writer, board_date, board_hits, board_reply, board_filename, board_id"
-				+ "	from (select * from board_tb order by board_idx DESC))"
-				+ " where r between ? and ?";
+				+ "	from (select * from board_tb";
+		if(searchInput != null && !searchInput.equals("")) {
+			sql += " where "+searchOption.trim()+" like '%"+searchInput.trim()+"%'";
+		}
+		sql += " order by board_idx DESC)) where r between ? and ?";
+		
 		try(Connection conn = getConnection();
 			PreparedStatement pstmt	= conn.prepareStatement(sql)){
 			
@@ -164,7 +168,7 @@ public class BoardDao {
 	}
 	
 	
-	public void delete(int boardIdx){
+	public void delete(int boardIdx){ //게시글 삭제
 		String sql = "delete from board_tb where board_idx=?";
 		try(Connection conn = getConnection();
 			PreparedStatement pstmt	= conn.prepareStatement(sql)){
@@ -174,6 +178,68 @@ public class BoardDao {
         pstmt.executeUpdate();
         
 		}catch(Exception e){e.printStackTrace();}
+	}
+	
+	public ArrayList<BoardDto> getSearch(String searchOption, String searchInput){
+		
+		ArrayList<BoardDto> searchList = new ArrayList<BoardDto>();
+		
+		String sql = "SELECT * FROM board_tb where "+searchOption.trim();
+		if(searchInput != null && !searchInput.equals("")) {
+			sql += " like '%"+searchInput.trim()+"%' order by board_idx desc";
+		}
+		
+		try(Connection conn = getConnection();
+			PreparedStatement pstmt	= conn.prepareStatement(sql)){
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			if(rs != null) 
+				searchList = new ArrayList<BoardDto>();
+			
+			while(rs.next()){
+				BoardDto dto = new BoardDto();
+
+				dto.setBoardIdx(rs.getInt("board_idx"));
+				dto.setBoardSbj(rs.getString("board_sbj"));
+				dto.setBoardContent(rs.getString("board_content"));
+				dto.setBoardWriter(rs.getString("board_writer"));
+				dto.setBoardDate(rs.getDate("board_date"));
+				dto.setBoardHits(rs.getInt("board_hits"));
+				dto.setBoardReply(rs.getInt("board_reply"));
+				dto.setBoardFilename(rs.getString("board_filename"));
+				dto.setBoardId(rs.getString("board_id"));
+				
+				searchList.add(dto);
+			}
+			
+			rs.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return searchList;
+	}
+	
+	
+	public int searchCount(String searchOption, String searchInput){ //검색한 글의 개수
+		int count = 0;
+		String sql = "select count(*) from (SELECT * FROM board_tb where "+searchOption.trim();
+		if(searchInput != null && !searchInput.equals("")) {
+			sql += " like '%"+searchInput.trim()+"%' order by board_idx desc)";
+		}
+		
+		try(Connection conn = getConnection();
+			PreparedStatement pstmt	=conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery()){
+			
+			if(rs != null) 
+				rs.next();
+
+			count = rs.getInt(1);
+			
+		}catch(Exception e){ e.printStackTrace(); }
+		
+		return count;
 	}
 	
 }
