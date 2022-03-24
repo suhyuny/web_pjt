@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.io.*" %>
+<%@ page import ="java.io.*" %>
 <%@ page import ="java.text.SimpleDateFormat" %>
+<%@ page import ="java.util.List" %>
+<%@ page import ="member.ReplyDto"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,25 +17,69 @@
 
 	<script src="<%= request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
 	<script>
+	
 		$(function(){
-			$("td:nth-child(3n+2)").css("text-align","left");
-		});
-		function replyReg(){
-			var replyWriter = dto.getBoardWriter();
-			var replyContent = document.getElementById("replyContent").innerHTML;
-			var replyContentIdx = dto.getBoardIdx();
 			
-			var request = new XMLHttpRequest();
-			request.onreadystatechange = function(){
-				if(request.readyState == 4 && request.status == 200){
-					document.getElementById("result").innerHTML = request.responseText;
-				}
+		});
+		
+		function regReply(){
+				var replyWriter = $("#replyWriter").val();
+				var replyContent = $("#replyContent").val();
+				var replyId = $("replyId").val();
+				var boardIdx = $("#boardIdx").val();
+				
+				
+				$.ajax({
+					type:"get",
+					url:"../reply/regReply.jsp",
+					data:$("form").serialize(),
+					success:function(data){
+						var dataJson = JSON.parse(data.trim());
+						var replyWriter = dataJson[0].replyWriter;
+						var replyContent = dataJson[0].replyContent;
+						var replyDate = dataJson[0].replyDate;
+						
+						if(replyContent != null && replyContent != undefined){
+							var reply = "<tr><td class='rw'>"+replyWriter+"</td><td class='rb'>";
+							reply += "<button type='button' class='btn btn-sm btn-outline-secondary' onclick='modify()'>수정</button> ";
+							reply += "<button type='button' class='btn btn-sm btn-outline-secondary' onclick='delete()'>삭제</button>";
+							reply += "</td></tr><tr><td class='rc'>"+replyContent+"</td><td class='rd'>"+replyDate+"</td></tr>";
+							$("#replyTb").append(reply);
+							
+						}
+						$("#replyContent").val("");
+						$("#replyContent").focus();
+					}
+				});//ajax
 			}
-			request.open("POST","info.jsp",false);
-			request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-			request.send("name="+name+"&age="+age+"&phone="+phone+"&addr="+addr);
-		}
+		
+		
 	</script>
+	<style>
+		#replyTb{
+			text-align:left;
+			font-size:15px;
+		}
+		td button{
+			height: 25px;
+    		font-size: 10px!important;
+		}
+		.rb{ /*댓글버튼*/
+			text-align:right;
+			width:160px;
+		}
+		.rw{ /*댓글작성자*/
+			font-size: 14px;
+    		font-weight: bold;
+		}
+		.rd{ /*댓글작성일자*/
+			font-size:12px;
+			text-align:right;
+		}
+		.rc{
+			font-size:10pt;
+		}
+	</style>
  
 <title>자유 게시판 :: K-농부 커뮤니티</title>
 
@@ -50,8 +96,11 @@
 </header>
 <body>
 
-<jsp:useBean id = " dao"  class="member.BoardDao"/>
-<jsp:useBean id = " dto"  class="member.BoardDto"/>
+<jsp:useBean id = "dao" class="member.BoardDao"/>
+<jsp:useBean id = "dto" class="member.BoardDto"/>
+
+<jsp:useBean id = "replyDao" class="member.ReplyDao"/>
+<jsp:useBean id = "replyDto" class="member.ReplyDto"/>
 
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -78,20 +127,6 @@
 					<td style="text-align: right;" width="180px">작성일 : <%=boardDate %></td>
 				</tr>
 			</table>
-			<!-- div class="mb-3 row gOtto-3">
-				<div class="col-sm">
-					<input type="text" class="form-control" value="작성자 : <%=dto.getBoardWriter() %>" style="text-align:center; font-size:10pt;">
-				</div>Otto
-				<div class="col-sm">
-					<input type="text" class="form-control" value="조회수 : <%=dto.getBoardHits() %>" style="text-align:center; font-size:10pt;">
-				</div>
-				<div class="col-sm">
-					<input type="text" class="form-control" value="댓글수 : <%=dto.getBoardReply() %>" style="text-align:center; font-size:10pt;">
-				</div>
-				<div class="col-sm">
-					<input type="text" class="form-control" value="<%=boardDate %>" style="text-align:center; font-size:10pt;">
-				</div>
-			</div-->
 			<div class="mb-3">
 				<textarea class="form-control" id="content" rows="15" style="resize:none;" readonly><%=dto.getBoardContent() %></textarea>
 				
@@ -116,33 +151,52 @@
 		<form>
 		<p id="reply">댓글</p>
 			<table class="table">
-				<thead>
+				<tbody id="replyTb">
+<%
+				List<ReplyDto> replyList = null;
+			
+				replyList = replyDao.getReply(boardIdx);
+				for(int i=0; i<replyList.size(); i++){
+				   replyDto = (ReplyDto) replyList.get(i);
+				   String replyDate = sdf.format(replyDto.getReplyDate());
+%>					
 					<tr>
-						<th scope="col" width="10%">닉네임</th>
-						<th scope="col" width="75%">내용</th>
-						<th scope="col" width="15%">작성일</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>닉네임</td>
-						<td>감사합니다 안녕하세요 공지사항이네요
+						<td class='rw'><%= replyDto.getReplyWriter()%></td>
+<%				if(id == null || !id.equals(replyDto.getReplyId())){
+%>						<td></td>
+<% 				}else if(id.equals(replyDto.getReplyId())){
+%>						<td class='rb'>
 							<button type="button" class="btn btn-sm btn-outline-secondary">수정</button>
 							<button type="button" class="btn btn-sm btn-outline-secondary">삭제</button>
 						</td>
-						<td>2022-01-01</td>
+<%				}
+%>
 					</tr>
+					<tr>
+						<td class='rc'><%= replyDto.getReplyContent()%></td>
+						<td class='rd'><%= replyDate%></td>
+						
+					</tr>
+					
+<%				}//for문의 닫힘 괄호	
+%>
 				</tbody>
 			</table>
-		<div class="input-group mb-3">
-			<input type="hidden" id="replyIdx">
-			<input type="hidden" id="replyWriter">
-			<textarea class="form-control" placeholder="댓글을 입력해주세요." style="resize:none;" id="replyContent"></textarea>
-			<input type="hidden" id="replyDate">
-			<input type="hidden" id="replyContentIdx">
-			<button class="btn btn-outline-secondary" type="button" onclick="replyReg()">댓글 등록하기</button>
-		</div>
-		</form>
+<%		if(id != null || id == "undefined"){
+%>		<div class="input-group mb-3">
+				<input type="hidden" id="replyWriter" name="replyWriter" value="<%= name%>">
+				<input type="hidden" id="replyId" name="replyId" value="<%= id%>">
+				<textarea class="form-control" id="replyContent" placeholder="댓글을 입력해주세요." style="resize:none;" name="replyContent"></textarea>
+				<input type="hidden" id="boardIdx" name="boardIdx" value="<%=dto.getBoardIdx()%>">
+				<button class="btn btn-outline-secondary" type="button" onclick="regReply()">댓글 등록하기</button>
+			</div>
+			</form>
+<%		}else{
+%>		<div class="input-group mb-3">
+				<textarea class="form-control" id="replyContent" style="resize:none;" name="replyContent" readonly>댓글을 작성하시려면 로그인해주세요.</textarea>
+			</div>
+<%		}
+%>
 	</article>
 <%@ include file="footer.jsp" %>
 </div><!-- container 끝 -->

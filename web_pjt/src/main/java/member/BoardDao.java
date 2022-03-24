@@ -156,7 +156,6 @@ public class BoardDao {
 		try(Connection conn = getConnection();
 			PreparedStatement pstmt	= conn.prepareStatement(sql)){
 		
-			/* 구현하시오. */
 			pstmt.setString(1, dto.getBoardSbj());
 			pstmt.setString(2, dto.getBoardContent());
 			pstmt.setString(3, dto.getBoardFilename());
@@ -178,46 +177,6 @@ public class BoardDao {
         pstmt.executeUpdate();
         
 		}catch(Exception e){e.printStackTrace();}
-	}
-	
-	public ArrayList<BoardDto> getSearch(String searchOption, String searchInput){
-		
-		ArrayList<BoardDto> searchList = new ArrayList<BoardDto>();
-		
-		String sql = "SELECT * FROM board_tb where "+searchOption.trim();
-		if(searchInput != null && !searchInput.equals("")) {
-			sql += " like '%"+searchInput.trim()+"%' order by board_idx desc";
-		}
-		
-		try(Connection conn = getConnection();
-			PreparedStatement pstmt	= conn.prepareStatement(sql)){
-			
-			ResultSet rs = pstmt.executeQuery();
-			
-			if(rs != null) 
-				searchList = new ArrayList<BoardDto>();
-			
-			while(rs.next()){
-				BoardDto dto = new BoardDto();
-
-				dto.setBoardIdx(rs.getInt("board_idx"));
-				dto.setBoardSbj(rs.getString("board_sbj"));
-				dto.setBoardContent(rs.getString("board_content"));
-				dto.setBoardWriter(rs.getString("board_writer"));
-				dto.setBoardDate(rs.getDate("board_date"));
-				dto.setBoardHits(rs.getInt("board_hits"));
-				dto.setBoardReply(rs.getInt("board_reply"));
-				dto.setBoardFilename(rs.getString("board_filename"));
-				dto.setBoardId(rs.getString("board_id"));
-				
-				searchList.add(dto);
-			}
-			
-			rs.close();
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		return searchList;
 	}
 	
 	
@@ -242,4 +201,5 @@ public class BoardDao {
 		return count;
 	}
 	
+
 }

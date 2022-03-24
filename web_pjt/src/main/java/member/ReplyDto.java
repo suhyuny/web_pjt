@@ -8,7 +8,8 @@ public class ReplyDto {
 	private String replyContent;
 	private String replyWriter; //name
 	private Date replyDate;
-	private int replyBoardIdx;
+	private String replyId;
+	private int boardIdx;
 	
 	public int getReplyIdx() {
 		return replyIdx;
@@ -34,10 +35,16 @@ public class ReplyDto {
 	public void setReplyDate(Date replyDate) {
 		this.replyDate = replyDate;
 	}
-	public int getReplyBoardIdx() {
-		return replyBoardIdx;
+	public int getBoardIdx() {
+		return boardIdx;
 	}
-	public void setReplyBoardIdx(int replyBoardIdx) {
-		this.replyBoardIdx = replyBoardIdx;
+	public void setBoardIdx(int boardIdx) {
+		this.boardIdx = boardIdx;
+	}
+	public String getReplyId() {
+		return replyId;
+	}
+	public void setReplyId(String replyId) {
+		this.replyId = replyId;
 	}
 }

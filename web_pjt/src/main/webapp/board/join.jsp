@@ -36,8 +36,9 @@
 		margin-bottom:50px;
 		font-size:14pt;
 	}
-	.btn-group{
+	#joinBtn{
 		margin:50px 0px;
+		text-align:center;
 	}
 	#class, #ad_agree{
 	    padding-left: 0px;
@@ -305,7 +306,7 @@
 		<input type="text" class="form-control" name="memberCorNum" id="mCorNum" placeholder="사업자등록번호를 입력해주세요. ( - 포함)" disabled>
 	</div>
 	
-	<div class="btn-group" role="group">
+	<div class="gap-2 d-md-block" id="joinBtn">
 		<button type="button" class="btn btn-success join_btn" onclick="joinform_check()">가입하기</button>
 		<button type="button" class="btn btn-outline-success join_btn" onclick="location.href='main.jsp'">취소하기</button>
 	</div>

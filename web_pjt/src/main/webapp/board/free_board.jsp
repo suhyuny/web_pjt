@@ -25,7 +25,7 @@
 			color:black;
 		}
 		#pNLink:hover, #next:hover, #prev:hover{
-			color:#198754;
+			color:black;
 		}
 	</style>
  
@@ -61,7 +61,7 @@
     
     int totalNum = 0;
     int searchNum = 0;
-    int listSize = 10;//화면에 표시할 게시글 숫자
+    int listSize = 15;//화면에 표시할 게시글 숫자
     totalNum = dao.countArticles();//DB에 저장된 총 게시글 숫자
     
     int currPageNum = Integer.parseInt(pageNum);//현재 페이지의 네비게이션 번호

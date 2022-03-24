@@ -14,6 +14,21 @@ public class BoardDto {
 	private String boardFilename;
 	private String boardId; //작성자 아이디
 	
+	public String getReplyWriter() {
+		return replyWriter;
+	}
+	public void setReplyWriter(String replyWriter) {
+		this.replyWriter = replyWriter;
+	}
+	public Date getReplyDate() {
+		return replyDate;
+	}
+	public void setReplyDate(Date replyDate) {
+		this.replyDate = replyDate;
+	}
+	private String replyWriter; //name
+	private Date replyDate;
+	
 	public int getBoardIdx() {
 		return boardIdx;
 	}
