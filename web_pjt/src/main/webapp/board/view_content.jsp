@@ -41,18 +41,39 @@
 						
 						if(replyContent != null && replyContent != undefined){
 							var reply = "<tr><td class='rw'>"+replyWriter+"</td><td class='rb'>";
-							reply += "<button type='button' class='btn btn-sm btn-outline-secondary' onclick='modify()'>수정</button> ";
-							reply += "<button type='button' class='btn btn-sm btn-outline-secondary' onclick='delete()'>삭제</button>";
-							reply += "</td></tr><tr><td class='rc'>"+replyContent+"</td><td class='rd'>"+replyDate+"</td></tr>";
+							reply += "<button type='button' class='btn btn-sm btn-outline-secondary' onclick='modifyFn()'>수정</button> ";
+							reply += "<button type='button' class='btn btn-sm btn-outline-secondary' onclick='deleteFn(this)'>삭제</button>";
+							reply += "</td><td class='rd'>"+replyDate+"</td></tr><tr><td colspan='3' class='rc'>"+replyContent+"</td></tr>";
 							$("#replyTb").append(reply);
 							
 						}
 						$("#replyContent").val("");
-						$("#replyContent").focus();
 					}
 				});//ajax
 			}
-		
+			
+			function modifyFn(){
+				
+			}
+			
+			function deleteFn(obj){
+				var replyIdx = $(obj).next().val();
+				if (confirm("정말 삭제하시겠습니까?") == true){    //확인
+
+				    $.ajax({
+					type:"post",
+					url:"../reply/delete.jsp",
+					data:"replyIdx="+replyIdx,
+					success:function(){
+						$(obj).parent().parent().next().remove();
+						$(obj).parent().parent().remove();
+						}
+					});
+
+				}else{   //취소
+				    return;
+				}
+			}
 		
 	</script>
 	<style>
@@ -75,6 +96,7 @@
 		.rd{ /*댓글작성일자*/
 			font-size:12px;
 			text-align:right;
+			width:130px;
 		}
 		.rc{
 			font-size:10pt;
@@ -128,7 +150,7 @@
 				</tr>
 			</table>
 			<div class="mb-3">
-				<textarea class="form-control" id="content" rows="15" style="resize:none;" readonly><%=dto.getBoardContent() %></textarea>
+				<textarea class="form-control" id="content" rows="15" style="resize:none;" maxlength="1000" readonly><%=dto.getBoardContent() %></textarea>
 				
 <%				if(dto.getBoardFilename() != null){ %>
 						<div><img src="<%=request.getContextPath()+"/image/"+dto.getBoardFilename() %>" width="500px">
@@ -162,19 +184,21 @@
 %>					
 					<tr>
 						<td class='rw'><%= replyDto.getReplyWriter()%></td>
+						
 <%				if(id == null || !id.equals(replyDto.getReplyId())){
 %>						<td></td>
 <% 				}else if(id.equals(replyDto.getReplyId())){
 %>						<td class='rb'>
-							<button type="button" class="btn btn-sm btn-outline-secondary">수정</button>
-							<button type="button" class="btn btn-sm btn-outline-secondary">삭제</button>
+							<button type="button" class="btn btn-sm btn-outline-secondary" onclick='modifyFn()'>수정</button>
+							<button type="button" class="btn btn-sm btn-outline-secondary" onclick='deleteFn(this)'>삭제</button>
+							<input type="hidden" id="replyIdx" name="replyIdx" value="<%= replyDto.getReplyIdx()%>">
 						</td>
 <%				}
-%>
+%>						<td class='rd'><%= replyDate%></td>
 					</tr>
 					<tr>
-						<td class='rc'><%= replyDto.getReplyContent()%></td>
-						<td class='rd'><%= replyDate%></td>
+						<td colspan="3" class='rc'><%= replyDto.getReplyContent()%></td>
+						
 						
 					</tr>
 					
@@ -186,7 +210,7 @@
 %>		<div class="input-group mb-3">
 				<input type="hidden" id="replyWriter" name="replyWriter" value="<%= name%>">
 				<input type="hidden" id="replyId" name="replyId" value="<%= id%>">
-				<textarea class="form-control" id="replyContent" placeholder="댓글을 입력해주세요." style="resize:none;" name="replyContent"></textarea>
+				<textarea class="form-control" id="replyContent" placeholder="댓글을 입력해주세요." style="resize:none;" name="replyContent" maxlength="500"></textarea>
 				<input type="hidden" id="boardIdx" name="boardIdx" value="<%=dto.getBoardIdx()%>">
 				<button class="btn btn-outline-secondary" type="button" onclick="regReply()">댓글 등록하기</button>
 			</div>
