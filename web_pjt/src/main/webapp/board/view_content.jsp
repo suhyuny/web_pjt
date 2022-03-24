@@ -41,9 +41,9 @@
 						
 						if(replyContent != null && replyContent != undefined){
 							var reply = "<tr><td class='rw'>"+replyWriter+"</td><td class='rb'>";
-							reply += "<button type='button' class='btn btn-sm btn-outline-secondary' onclick='modifyFn()'>수정</button> ";
+							reply += "<button type='button' class='btn btn-sm btn-outline-secondary' onclick='modifyBtn(this)'>수정</button> ";
 							reply += "<button type='button' class='btn btn-sm btn-outline-secondary' onclick='deleteFn(this)'>삭제</button>";
-							reply += "</td><td class='rd'>"+replyDate+"</td></tr><tr><td colspan='3' class='rc'>"+replyContent+"</td></tr>";
+							reply += "</td><td class='rd'>"+replyDate+"</td></tr><tr><td colspan='3' class='rc'><pre>"+replyContent+"</pre></td></tr>";
 							$("#replyTb").append(reply);
 							
 						}
@@ -52,8 +52,27 @@
 				});//ajax
 			}
 			
-			function modifyFn(){
+			function modifyBtn(obj){
+				var modifyVal = $(obj).parent().parent().next().text().trim(); //수정할 댓글내용
+				var modify = "<td colspan='3'><div class='input-group mb-3'>";
+				modify += "<textarea class='form-control' maxlength='500'>"+modifyVal+"</textarea>";
+				modify += "<button class='btn btn-outline-secondary' type='button' onclick='modifyFn(this)'>댓글 수정</button></div></td>";
 				
+				$(obj).parent().parent().next().html(modify);
+			}
+			
+			function modifyFn(obj){
+				var modifyVal = $(obj).prev().val();
+				var replyIdx = $(obj).parent().parent().parent().prev().children().next().children().last().val();
+				$.ajax({
+					type:"post",
+					url:"../reply/modify.jsp",
+					data:"modifyVal="+modifyVal+"&replyIdx="+replyIdx,
+					success:function(data){
+						var newVal = "<td colspan='3' class='rc'><pre>"+data+"</pre></td>";
+						$(obj).parent().parent().parent().html(newVal);
+					}
+				});
 			}
 			
 			function deleteFn(obj){
@@ -77,11 +96,14 @@
 		
 	</script>
 	<style>
+		textarea{
+			resize:none;
+		}
 		#replyTb{
 			text-align:left;
 			font-size:15px;
 		}
-		td button{
+		.sbt{
 			height: 25px;
     		font-size: 10px!important;
 		}
@@ -98,8 +120,9 @@
 			text-align:right;
 			width:130px;
 		}
-		.rc{
+		.rc, pre{ /*댓글내용*/
 			font-size:10pt;
+			font-family:malgun Gothic;
 		}
 	</style>
  
@@ -150,7 +173,7 @@
 				</tr>
 			</table>
 			<div class="mb-3">
-				<textarea class="form-control" id="content" rows="15" style="resize:none;" maxlength="1000" readonly><%=dto.getBoardContent() %></textarea>
+				<textarea class="form-control" id="content" rows="15" maxlength="1000" readonly><%=dto.getBoardContent() %></textarea>
 				
 <%				if(dto.getBoardFilename() != null){ %>
 						<div><img src="<%=request.getContextPath()+"/image/"+dto.getBoardFilename() %>" width="500px">
@@ -189,17 +212,15 @@
 %>						<td></td>
 <% 				}else if(id.equals(replyDto.getReplyId())){
 %>						<td class='rb'>
-							<button type="button" class="btn btn-sm btn-outline-secondary" onclick='modifyFn()'>수정</button>
-							<button type="button" class="btn btn-sm btn-outline-secondary" onclick='deleteFn(this)'>삭제</button>
+							<button type="button" class="btn btn-sm btn-outline-secondary sbt" onclick='modifyBtn(this)'>수정</button>
+							<button type="button" class="btn btn-sm btn-outline-secondary sbt" onclick='deleteFn(this)'>삭제</button>
 							<input type="hidden" id="replyIdx" name="replyIdx" value="<%= replyDto.getReplyIdx()%>">
 						</td>
 <%				}
 %>						<td class='rd'><%= replyDate%></td>
 					</tr>
 					<tr>
-						<td colspan="3" class='rc'><%= replyDto.getReplyContent()%></td>
-						
-						
+						<td colspan="3" class='rc'><pre><%= replyDto.getReplyContent()%></pre></td>
 					</tr>
 					
 <%				}//for문의 닫힘 괄호	
@@ -207,10 +228,10 @@
 				</tbody>
 			</table>
 <%		if(id != null || id == "undefined"){
-%>		<div class="input-group mb-3">
+%>			<div class="input-group mb-3">
 				<input type="hidden" id="replyWriter" name="replyWriter" value="<%= name%>">
 				<input type="hidden" id="replyId" name="replyId" value="<%= id%>">
-				<textarea class="form-control" id="replyContent" placeholder="댓글을 입력해주세요." style="resize:none;" name="replyContent" maxlength="500"></textarea>
+				<textarea class="form-control" id="replyContent" placeholder="댓글을 입력해주세요." name="replyContent" maxlength="500"></textarea>
 				<input type="hidden" id="boardIdx" name="boardIdx" value="<%=dto.getBoardIdx()%>">
 				<button class="btn btn-outline-secondary" type="button" onclick="regReply()">댓글 등록하기</button>
 			</div>

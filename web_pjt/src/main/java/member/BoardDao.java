@@ -152,7 +152,7 @@ public class BoardDao {
 	}
 	
 	public void update(BoardDto dto){ //게시글 수정
-		String sql = "update board_tb set board_sbj=?,board_content=?,board_filename=? where board_idx=?";//글번호에 대한 게시글을 업데이트하는 SQL문을 작성하시오.
+		String sql = "update board_tb set board_sbj=?,board_content=?,board_filename=? where board_idx=?";
 		try(Connection conn = getConnection();
 			PreparedStatement pstmt	= conn.prepareStatement(sql)){
 		
