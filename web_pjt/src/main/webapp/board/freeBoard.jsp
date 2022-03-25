@@ -10,7 +10,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" 
     	  integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="board_css.css">
+    <link rel="stylesheet" href="../css/board_css.css">
 
 	<script src="<%= request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
 	<script>
@@ -30,12 +30,12 @@
 	</style>
  
 <title>자유 게시판 :: K-농부 커뮤니티</title>
-
-<div class="container">
 <%@ include file="header.jsp" %>
+<div class="container">
+
 <header class="d-flex justify-content-center py-3">
 	<ul class="nav nav-pills">
-		<li class="nav-item"><a href="free_board.jsp" class="nav-link active" aria-current="page">자유게시판</a></li>
+		<li class="nav-item"><a href="freeBoard.jsp" class="nav-link active" aria-current="page">자유게시판</a></li>
 		<li class="nav-item"><a href="#" class="nav-link">판매&홍보</a></li>
 		<li class="nav-item"><a href="#" class="nav-link">구매요청</a></li>
 		<li class="nav-item"><a href="#" class="nav-link">농부게시판</a></li>
@@ -81,7 +81,7 @@
 %>
 	<article>
 		<h2>자유 게시판</h2>
-		<form action="free_board.jsp" method="post">
+		<form action="freeBoard.jsp" method="post">
 			<div id="search">
 				<select id="searchsel" name="searchOption">
 					<option value="board_sbj">제목</option>
@@ -104,18 +104,24 @@
 			<tbody>
 			
 <%
+
 			if(searchInput != null && !searchInput.equals("")){ //검색했을때
 				searchNum = dao.searchCount(searchOption, searchInput);
 				if(searchNum > 0){
 					int number = searchNum - (currPageNum - 1) * listSize;
 %>					<p>"<%=searchInput %>" 검색결과 : <%=searchNum %>개의 글이 검색되었습니다.</p>
 <%					for(int i=0; i<articleList.size(); i++){
-					   dto = (BoardDto) articleList.get(i);
-					   String boardDate = sdf.format(dto.getBoardDate());
+						dto = (BoardDto) articleList.get(i);
+						String boardDate = sdf.format(dto.getBoardDate());
+						/*int boardIdx = Integer.parseInt(request.getParameter("boardIdx"));
+						int replyNum = 0;
+						replyNum = dao.replyNum(boardIdx);
+						dto.setBoardReply(replyNum);
+						dto = dao.getPost(boardIdx);*/
 					   
 %>						
 						<tr>
-							<td><a href="view_content.jsp?boardIdx=<%=dto.getBoardIdx() %>&pageNum=<%= currPageNum%>"><%=dto.getBoardSbj() %></a></td>
+							<td><a href="viewContent.jsp?boardIdx=<%=dto.getBoardIdx() %>&pageNum=<%= currPageNum%>"><%=dto.getBoardSbj() %></a></td>
 							<td style="font-size:10pt;"><%=dto.getBoardWriter() %></td>
 							<td style="font-size:10pt;"><%=dto.getBoardHits() %></td>
 							<td style="font-size:10pt;"><%=boardDate %></td>
@@ -137,7 +143,7 @@
 				   String boardDate = sdf.format(dto.getBoardDate());
 %>
 					<tr>
-						<td><a href="view_content.jsp?boardIdx=<%=dto.getBoardIdx() %>&pageNum=<%= currPageNum%>"><%=dto.getBoardSbj() %></a></td>
+						<td><a href="viewContent.jsp?boardIdx=<%=dto.getBoardIdx() %>&pageNum=<%= currPageNum%>"><%=dto.getBoardSbj() %></a></td>
 						<td style="font-size:10pt;"><%=dto.getBoardWriter() %></td>
 						<td style="font-size:10pt;"><%=dto.getBoardHits() %></td>
 						<td style="font-size:10pt;"><%=boardDate %></td>
@@ -173,7 +179,7 @@
 	    	
 	    	if(startNum > pageBlock){
 %>
-			<li class="page-item"><a class="page-link" id="prev" href="free_board.jsp?pageNum=<%=startNum-10%>&searchOption=<%=searchOption%>&searchInput=<%=searchInput%>">이전</a></li>
+			<li class="page-item"><a class="page-link" id="prev" href="freeBoard.jsp?pageNum=<%=startNum-10%>&searchOption=<%=searchOption%>&searchInput=<%=searchInput%>">이전</a></li>
 <%
 	        }
 			for(int i = startNum; i<=endNum; i++){ //페이지 블록 번호
@@ -182,12 +188,12 @@
 					<li class="page-item active"><a class="page-link" id="pLink" href="#"><%= i%></a></li>
 <%				}else{ //현재페이지 아닌 경우 링크 설정함
 %>			
-					<li class="page-item"><a class="page-link" id="pNLink" href="free_board.jsp?pageNum=<%= i %>&searchOption=<%=searchOption%>&searchInput=<%=searchInput%>"><%= i%></a></li>
+					<li class="page-item"><a class="page-link" id="pNLink" href="freeBoard.jsp?pageNum=<%= i %>&searchOption=<%=searchOption%>&searchInput=<%=searchInput%>"><%= i%></a></li>
 <%				}
 			}
 	    	if(endNum < pageCount){//네비게이션 시작번호와 네비게이션 표시 개수를 더한 값이 네비게이션 총 개수보다 작거나 같은 경우 
 %>   	
-				<li class="page-item"><a class="page-link" id="next" href="free_board.jsp?pageNum=<%= startNum+10 %>&searchOption=<%=searchOption%>&searchInput=<%=searchInput%>">다음</a></li>
+				<li class="page-item"><a class="page-link" id="next" href="freeBoard.jsp?pageNum=<%= startNum+10 %>&searchOption=<%=searchOption%>&searchInput=<%=searchInput%>">다음</a></li>
 <%	
 	    	}
     	}
@@ -204,7 +210,7 @@
     	
     	if(startNum > pageBlock){
 %>
-		<li class="page-item"><a class="page-link" id="prev" href="free_board.jsp?pageNum=<%=startNum-10%>">이전</a></li>
+		<li class="page-item"><a class="page-link" id="prev" href="freeBoard.jsp?pageNum=<%=startNum-10%>">이전</a></li>
 <%
         }
 		for(int i = startNum; i<=endNum; i++){ //페이지 블록 번호
@@ -213,12 +219,12 @@
 				<li class="page-item active"><a class="page-link" id="pLink" href="#"><%= i%></a></li>
 <%			}else{ //현재페이지 아닌 경우 링크 설정함
 %>			
-				<li class="page-item"><a class="page-link" id="pNLink" href="free_board.jsp?pageNum=<%= i %>"><%= i%></a></li>
+				<li class="page-item"><a class="page-link" id="pNLink" href="freeBoard.jsp?pageNum=<%= i %>"><%= i%></a></li>
 <%			}
 		}
     	if(endNum < pageCount){//네비게이션 시작번호와 네비게이션 표시 개수를 더한 값이 네비게이션 총 개수보다 작거나 같은 경우 
 %>   	
-			<li class="page-item"><a class="page-link" id="next" href="free_board.jsp?pageNum=<%= startNum+10 %>">다음</a></li>
+			<li class="page-item"><a class="page-link" id="next" href="freeBoard.jsp?pageNum=<%= startNum+10 %>">다음</a></li>
 <%	
     	}
     }
@@ -231,7 +237,7 @@
 <%
 		if(id != null){ %>
 			<div id="write_div">
-				<button type="button" id="write_btn" class="btn btn-success" onclick="location.href='write_content.jsp'">글쓰기</button>
+				<button type="button" id="write_btn" class="btn btn-success" onclick="location.href='writeContent.jsp'">글쓰기</button>
 			</div>
 <% 		}
 %>

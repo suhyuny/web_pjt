@@ -42,7 +42,7 @@
 
 	if(result == 1){
 		out.println("<script>alert('게시글이 등록되었습니다.')</script>");
-		out.println("<script>location.href='free_board.jsp'</script>");
+		out.println("<script>location.href='freeBoard.jsp'</script>");
 	}else{
 		out.println("<script>alert('게시글이 정상적으로 입력되지 않았습니다.')</script>");
      	out.println("<script> history.back(); </script>");

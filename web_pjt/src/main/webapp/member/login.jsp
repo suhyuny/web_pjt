@@ -48,7 +48,7 @@
 </head>
 <body>
 <div class="container">
-<h1><a href="main.jsp">K-농부 커뮤니티</a></h1>
+<h1 id="header"><a href="../board/main.jsp"><img src="../image/logo.png" width="330"></a></h1>
 <form action="login_process.jsp" method="post">
     <div class="form-floating">
       <input type="text" class="form-control" placeholder="아이디" name="memberId">
@@ -60,8 +60,8 @@
     </div>
     <button class="w-100 btn btn-lg btn-success" type="submit">로그인</button>
     <div class="login_bottom">
-	    <a class="under" href="find_id.jsp">ID 찾기</a> |
-	    <a class="under" href="find_pw.jsp">비밀번호 찾기</a> |
+	    <a class="under" href="findId.jsp">ID 찾기</a> |
+	    <a class="under" href="findPw.jsp">비밀번호 찾기</a> |
 	    <a class="under" href="join.jsp">회원가입</a>
     </div>
     

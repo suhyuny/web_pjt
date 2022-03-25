@@ -21,7 +21,7 @@
 	   dao.update(dto); 
    }catch(Exception e){e.printStackTrace();}
     
-	String url ="view_content.jsp?boardIdx="+boardIdx;
+	String url ="viewContent.jsp?boardIdx="+boardIdx;
 	pageContext.forward(url);
 %>
 

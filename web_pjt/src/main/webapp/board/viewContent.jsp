@@ -13,7 +13,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" 
     	  integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="board_css.css">
+    <link rel="stylesheet" href="../css/board_css.css">
 
 	<script src="<%= request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
 	<script>
@@ -41,8 +41,8 @@
 						
 						if(replyContent != null && replyContent != undefined){
 							var reply = "<tr><td class='rw'>"+replyWriter+"</td><td class='rb'>";
-							reply += "<button type='button' class='btn btn-sm btn-outline-secondary' onclick='modifyBtn(this)'>수정</button> ";
-							reply += "<button type='button' class='btn btn-sm btn-outline-secondary' onclick='deleteFn(this)'>삭제</button>";
+							reply += "<button type='button' class='btn btn-sm btn-outline-secondary sbt' onclick='modifyBtn(this)'>수정</button> ";
+							reply += "<button type='button' class='btn btn-sm btn-outline-secondary sbt' onclick='deleteFn(this)'>삭제</button>";
 							reply += "</td><td class='rd'>"+replyDate+"</td></tr><tr><td colspan='3' class='rc'><pre>"+replyContent+"</pre></td></tr>";
 							$("#replyTb").append(reply);
 							
@@ -66,7 +66,7 @@
 				var replyIdx = $(obj).parent().parent().parent().prev().children().next().children().last().val();
 				$.ajax({
 					type:"post",
-					url:"../reply/modify.jsp",
+					url:"../reply/modifyReply.jsp",
 					data:"modifyVal="+modifyVal+"&replyIdx="+replyIdx,
 					success:function(data){
 						var newVal = "<td colspan='3' class='rc'><pre>"+data+"</pre></td>";
@@ -81,7 +81,7 @@
 
 				    $.ajax({
 					type:"post",
-					url:"../reply/delete.jsp",
+					url:"../reply/deleteReply.jsp",
 					data:"replyIdx="+replyIdx,
 					success:function(){
 						$(obj).parent().parent().next().remove();
@@ -128,15 +128,16 @@
  
 <title>자유 게시판 :: K-농부 커뮤니티</title>
 
-<div class="container">
 <%@ include file="header.jsp" %>
+<div class="container">
+
 <header class="d-flex justify-content-center py-3">
 	<ul class="nav nav-pills">
-		<li class="nav-item"><a href="free_board.jsp" class="nav-link active" aria-current="page">자유게시판</a></li>
-		<li class="nav-item"><a href="sell_board.jsp" class="nav-link">판매&홍보</a></li>
-		<li class="nav-item"><a href="buy_board.jsp" class="nav-link">구매요청</a></li>
-		<li class="nav-item"><a href="seller_board.jsp" class="nav-link">농부게시판</a></li>
-		<li class="nav-item"><a href="notice.jsp" class="nav-link">공지사항</a></li>
+		<li class="nav-item"><a href="freeBoard.jsp" class="nav-link active" aria-current="page">자유게시판</a></li>
+		<li class="nav-item"><a href="#" class="nav-link">판매&홍보</a></li>
+		<li class="nav-item"><a href="#" class="nav-link">구매요청</a></li>
+		<li class="nav-item"><a href="#" class="nav-link">농부게시판</a></li>
+		<li class="nav-item"><a href="#" class="nav-link">공지사항</a></li>
 	</ul>
 </header>
 <body>
@@ -154,6 +155,10 @@
 	int boardIdx = Integer.parseInt(request.getParameter("boardIdx"));
 	dao.updateHits(boardIdx);
 	dto = dao.getPost(boardIdx);
+	
+	int replyNum = 0;
+	replyNum = dao.replyNum(boardIdx);
+	dto.setBoardReply(replyNum);
 	
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	String boardDate = sdf.format(dto.getBoardDate());
@@ -176,7 +181,7 @@
 				<textarea class="form-control" id="content" rows="15" maxlength="1000" readonly><%=dto.getBoardContent() %></textarea>
 				
 <%				if(dto.getBoardFilename() != null){ %>
-						<div><img src="<%=request.getContextPath()+"/image/"+dto.getBoardFilename() %>" width="500px">
+						<div><img src="<%=request.getContextPath()+"/image/"+dto.getBoardFilename() %>" width="300px">
 				<% }
 				else {%><div><%} %>
 				</div>

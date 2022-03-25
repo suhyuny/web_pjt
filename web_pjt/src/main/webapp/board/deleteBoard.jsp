@@ -9,7 +9,7 @@
 		  rel="stylesheet" 
 		  integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" 
 		  crossorigin="anonymous">
-	<link rel="stylesheet" href="board_css.css">
+	<link rel="stylesheet" href="../css/board_css.css">
 	<title>K-농부 커뮤니티</title>
 	<style>
 		.container{
@@ -30,8 +30,9 @@
 
 </head>
 <body>
-<div class="container">
 <%@ include file="header.jsp" %>
+<div class="container">
+
 
 <% 	
 	if(id.equals(dto.getBoardId())){
@@ -41,7 +42,7 @@
 	<input type="hidden" name="boardIdx" value="<%=request.getParameter("boardIdx") %>"/>
 		<div class="gap-2 d-md-block" style="margin-top:30px;">
 			<button type="submit" class="btn btn-success">삭제하기</button>
-			<button type="button" class="btn btn-success" onclick="location.href='free_board.jsp'">돌아가기</button>
+			<button type="button" class="btn btn-success" onclick="location.href='freeBoard.jsp'">돌아가기</button>
 		</div>
 	</form>
 	

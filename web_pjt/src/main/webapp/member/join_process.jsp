@@ -35,7 +35,7 @@
 		
 		int result = dao.memberJoin(dto);
 		if(result == 1){
-			response.sendRedirect("join_success.jsp");
+			response.sendRedirect("joinSuccess.jsp");
 		}else{
 			out.println("<script>alert('회원정보 입력 실패')</script>");
 			out.println("<script> history.back(); </script>");

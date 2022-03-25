@@ -5,7 +5,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>글삭제</title>
-<link type="text/css" rel="stylesheet" href="../css/bbs.css"></link>
 </head>
 <body>
 
@@ -19,7 +18,7 @@
 		dao.delete(Integer.parseInt(boardIdx));
 	}catch(Exception e){e.printStackTrace();}
     
-   pageContext.forward("free_board.jsp");
+   pageContext.forward("freeBoard.jsp");
 %>
 
 </body>

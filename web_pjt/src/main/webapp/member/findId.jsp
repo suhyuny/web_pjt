@@ -75,7 +75,7 @@
 </head>
 <body>
 <div class="container">
-<h1><a href="main.jsp">K-농부 커뮤니티</a></h1>
+<h1 id="header"><a href="../board/main.jsp"><img src="../image/logo.png" width="330"></a></h1>
 <h2 style="text-align:left; font-size:17pt;">아이디 찾기</h2>
 <form>
     <div class="form-floating">
@@ -89,7 +89,7 @@
     <button class="w-100 btn btn-lg btn-success" type="button" id="findId">아이디 찾기</button>
     <span id="id"></span>
     <div class="login_bottom">
-	    <a class="under" href="find_pw.jsp">비밀번호 찾기</a> |
+	    <a class="under" href="findPw.jsp">비밀번호 찾기</a> |
 	    <a class="under" href="login.jsp">로그인</a> |
 	    <a class="under" href="join.jsp">회원가입</a>
     </div>

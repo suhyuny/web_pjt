@@ -9,7 +9,7 @@
 		  rel="stylesheet" 
 		  integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" 
 		  crossorigin="anonymous">
-	<link rel="stylesheet" href="board_css.css">
+	<link rel="stylesheet" href="../css/board_css.css">
 	<title>K-농부 커뮤니티</title>
 	<style>
 		.container{
@@ -21,12 +21,12 @@
 	</style>
 </head>
 <body>
-<div class="container">
 <%@ include file="header.jsp" %>
-	<h2 style="width:500px; margin:auto;">회원가입이 완료되었습니다.</h2>
+<div class="container">
+	<h2 style="width:500px; margin:auto;">게시글 등록이 완료되었습니다.</h2>
 	<div id="a">
 		<a href="main.jsp">메인으로</a> |
-		<a href="login.jsp">로그인하기</a>
+		<a href="freeBoard.jsp">글 목록 보기</a>
 	</div>
 	<!-- Optional JavaScript; choose one of the two! -->
 	

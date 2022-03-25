@@ -15,7 +15,7 @@
 		  integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" 
 		  crossorigin="anonymous">
 	<link rel="canonical" href="https://getbootstrap.kr/docs/5.1/examples/carousel/">
-	<!-- link rel="stylesheet" href="board_css.css"-->
+	<!-- link rel="stylesheet" href="../css/board_css.css"-->
 	<title>K-농부 커뮤니티</title>
 
     <!-- Favicons -->
@@ -26,7 +26,6 @@
 	<link rel="mask-icon" href="/docs/5.1/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
 	<link rel="icon" href="/docs/5.1/assets/img/favicons/favicon.ico">
 	<meta name="theme-color" content="#7952b3">
-
 
     <style>
     #header{
@@ -83,18 +82,22 @@
 	.btn:visited{
 		color:white;		
 	}
+	header{
+		margin-top:30px;
+		margin-bottom:15px;
+	}
     </style>
 
     
     <!-- Custom styles for this template -->
-    <link href="carousel.css" rel="stylesheet">
+    <link href="../css/carousel.css" rel="stylesheet">
 </head>
-
-<div class="container">
 <%@ include file="header.jsp" %>
+<div class="container">
+
 	<header class="d-flex justify-content-center py-3">
 		<ul class="nav nav-pills">
-			<li class="nav-item"><a href="free_board.jsp" class="nav-link">자유게시판</a></li>
+			<li class="nav-item"><a href="freeBoard.jsp" class="nav-link">자유게시판</a></li>
 			<li class="nav-item"><a href="#" class="nav-link">판매&홍보</a></li>
 			<li class="nav-item"><a href="#" class="nav-link">구매요청</a></li>
 			<li class="nav-item"><a href="#" class="nav-link">농부게시판</a></li>
@@ -115,7 +118,8 @@
     <div class="carousel-inner">
       <div class="carousel-item active">
         <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect>
-        <img src="https://img.freepik.com/free-photo/green-plants-growing-from-the-ground_1187-1725.jpg?t=st=1647765489~exp=1647766089~hmac=59518588742e0735520bc3ea6a56c2109274c354c56694b2496b3af552ab13a9&w=1380" alt="farmer">
+        <!-- img src="https://img.freepik.com/free-photo/green-plants-growing-from-the-ground_1187-1725.jpg?t=st=1647765489~exp=1647766089~hmac=59518588742e0735520bc3ea6a56c2109274c354c56694b2496b3af552ab13a9&w=1380" alt="farmer"-->
+        <img src="../image/main1.webp" alt="farm">
         </svg>
 		
         <div class="container">
@@ -128,19 +132,21 @@
       </div>
       <div class="carousel-item">
         <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect>
-		<img src="https://img.freepik.com/free-photo/farmer-with-eco-fruit-and-vegetables-in-autumn-agricultural-on-harvest-cornucopia-in-fall-season-and-thanksgiving-day_42957-873.jpg?w=1380" alt="farmer">
+		<!-- img src="https://img.freepik.com/free-photo/farmer-with-eco-fruit-and-vegetables-in-autumn-agricultural-on-harvest-cornucopia-in-fall-season-and-thanksgiving-day_42957-873.jpg?w=1380" alt="farmer"-->
+		<img src="../image/main2.webp" alt="farmer">
 		</svg>
         <div class="container">
           <div class="carousel-caption">
             <h1>나만 알고 있는 꿀팁을 다함께 공유해요!</h1>
             <p>제철식품의 손질법, 요리법 등 서로가 알고 있던 정보를 함께 나누고 공유하세요.</p>
-            <p><a class="btn btn-lg btn-success" href="free_board.jsp">자유게시판</a></p>
+            <p><a class="btn btn-lg btn-success" href="freeBoard.jsp">자유게시판</a></p>
           </div>
         </div>
       </div>
       <div class="carousel-item">
         <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"></rect>
-        <img src="https://honeywell.scene7.com/is/image/honeywell/sps-agriculture-hero:5-2-hero" alt="farmer">
+        <!-- img src="https://honeywell.scene7.com/is/image/honeywell/sps-agriculture-hero:5-2-hero" alt="farmer"-->
+        <img src="../image/main3.webp" alt="night_farm">
         </svg>
         <div class="container">
           <div class="carousel-caption text-end">

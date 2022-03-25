@@ -10,7 +10,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" 
     	  integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="board_css.css">
+    <link rel="stylesheet" href="../css/board_css.css">
 
 	<script src="<%= request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
 	<script>
@@ -22,15 +22,15 @@
  
 <title>자유 게시판 :: K-농부 커뮤니티</title>
 
-<div class="container">
 <%@ include file="header.jsp" %>
+<div class="container">
 <header class="d-flex justify-content-center py-3">
 	<ul class="nav nav-pills">
-		<li class="nav-item"><a href="free_board.jsp" class="nav-link active" aria-current="page">자유게시판</a></li>
-		<li class="nav-item"><a href="sell_board.jsp" class="nav-link">판매&홍보</a></li>
-		<li class="nav-item"><a href="buy_board.jsp" class="nav-link">구매요청</a></li>
-		<li class="nav-item"><a href="seller_board.jsp" class="nav-link">농부게시판</a></li>
-		<li class="nav-item"><a href="notice.jsp" class="nav-link">공지사항</a></li>
+		<li class="nav-item"><a href="freeBoard.jsp" class="nav-link active" aria-current="page">자유게시판</a></li>
+		<li class="nav-item"><a href="#" class="nav-link">판매&홍보</a></li>
+		<li class="nav-item"><a href="#" class="nav-link">구매요청</a></li>
+		<li class="nav-item"><a href="#" class="nav-link">농부게시판</a></li>
+		<li class="nav-item"><a href="#" class="nav-link">공지사항</a></li>
 	</ul>
 </header>
      
@@ -39,7 +39,7 @@
 	<article>
 		<h2>게시글 작성</h2><br>
 		
-		<form method="post" action="write_content_process.jsp" enctype="multipart/form-data">
+		<form method="post" action="writeContent_process.jsp" enctype="multipart/form-data">
 			<!--  
 			select class="form-select" name="boardClass">
 				<option selected hidden>게시판을 선택해주세요</option>

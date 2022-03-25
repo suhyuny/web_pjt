@@ -64,7 +64,7 @@
 			$("#idCheck").click(function(){
 				$.ajax({
 					type:"get",
-					url:"idcheck.jsp",
+					url:"idCheck.jsp",
 					data:$("#memberId").val(),
 					success:function(data){
 						
@@ -223,7 +223,7 @@
 </head>
 <body>
 <div class="container">
-<h1><a href="main.jsp">K-농부 커뮤니티</a></h1>
+<h1 id="header"><a href="../board/main.jsp"><img src="../image/logo.png"></a></h1>
 	<h4>회원가입</h4>
 	<h5>K-농부 커뮤니티에 오신 것을 환영합니다.</h5>
 	
@@ -308,10 +308,10 @@
 	
 	<div class="gap-2 d-md-block" id="joinBtn">
 		<button type="button" class="btn btn-success join_btn" onclick="joinform_check()">가입하기</button>
-		<button type="button" class="btn btn-outline-success join_btn" onclick="location.href='main.jsp'">취소하기</button>
+		<button type="button" class="btn btn-outline-success join_btn" onclick="location.href='../board/main.jsp'">취소하기</button>
 	</div>
 	</form>
-<%@ include file="footer.jsp" %>
+<%@ include file="../board/footer.jsp" %>
 </div><!-- container 끝 -->
 <!-- Optional JavaScript; choose one of the two! -->
 

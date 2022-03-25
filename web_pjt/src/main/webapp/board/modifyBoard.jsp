@@ -9,7 +9,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" 
     	  integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="board_css.css">
+    <link rel="stylesheet" href="../css/board_css.css">
 
 	<script src="<%= request.getContextPath()%>/js/jquery-3.6.0.min.js"></script>
 	<script>
@@ -25,15 +25,16 @@
 
 <title>게시글 수정 :: K-농부 커뮤니티</title>
 
-<div class="container">
 <%@ include file="header.jsp" %>
+<div class="container">
+
 <header class="d-flex justify-content-center py-3">
 	<ul class="nav nav-pills">
-		<li class="nav-item"><a href="free_board.jsp" class="nav-link active" aria-current="page">자유게시판</a></li>
-		<li class="nav-item"><a href="sell_board.jsp" class="nav-link">판매&홍보</a></li>
-		<li class="nav-item"><a href="buy_board.jsp" class="nav-link">구매요청</a></li>
-		<li class="nav-item"><a href="seller_board.jsp" class="nav-link">농부게시판</a></li>
-		<li class="nav-item"><a href="notice.jsp" class="nav-link">공지사항</a></li>
+		<li class="nav-item"><a href="freeBoard.jsp" class="nav-link active" aria-current="page">자유게시판</a></li>
+		<li class="nav-item"><a href="#" class="nav-link">판매&홍보</a></li>
+		<li class="nav-item"><a href="#" class="nav-link">구매요청</a></li>
+		<li class="nav-item"><a href="#" class="nav-link">농부게시판</a></li>
+		<li class="nav-item"><a href="#" class="nav-link">공지사항</a></li>
 	</ul>
 </header>
      

@@ -14,7 +14,7 @@
 	if(id != null){
 		session.invalidate();
 	}
-	response.sendRedirect("main.jsp");
+	response.sendRedirect("../board/main.jsp");
 
 %>
 

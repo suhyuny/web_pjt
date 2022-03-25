@@ -10,7 +10,7 @@
 		  rel="stylesheet" 
 		  integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" 
 		  crossorigin="anonymous">
-	<link rel="stylesheet" href="board_css.css">
+	<link rel="stylesheet" href="../css/board_css.css">
 	<style>
 	table{
 		text-align:left;
@@ -61,7 +61,7 @@
 				}
 				$.ajax({
 					type:"get",
-					url:"pwedit_process.jsp",
+					url:"pwEdit_process.jsp",
 					data:$("form").serialize(),
 					success:function(data){
 						alert(data);
@@ -84,10 +84,10 @@
 </head>
 <body>
 
+<%@ include file="../board/header.jsp" %>
 <div class="container" style="width:600px;">
-<%@ include file="header.jsp" %>
-	<h2>비밀번호 변경</h2>
-	<form method="post" action="pwedit_process.jsp">
+	<h2 style="margin-top:50px;">비밀번호 변경</h2>
+	<form method="post" action="pwEdit_process.jsp">
 	<p>비밀번호는 영문자+숫자+특수문자 조합으로 8~25자리 사용해야 합니다.</p>
 	<table class="table">
 		<tbody>
@@ -126,7 +126,7 @@
 			integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" 
 			crossorigin="anonymous"></script>
 	-->
-<%@ include file="footer.jsp" %>
+<%@ include file="../board/footer.jsp" %>
 </div><!-- container -->
 </body>
 </html>
