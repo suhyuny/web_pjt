@@ -49,7 +49,7 @@ public class BoardDao {
 	public void updateHits(int num) { //조회수
 		String sql = "update board_tb set board_hits=(board_hits+1) where board_idx=?";
 		try(Connection conn = getConnection();
-			PreparedStatement pstmt	=conn.prepareStatement(sql)){
+			PreparedStatement pstmt	= conn.prepareStatement(sql)){
 		
 		pstmt.setInt(1, num);
 		
@@ -63,7 +63,7 @@ public class BoardDao {
 		String sql = "select count(*) from board_tb";
 		
 		try(Connection conn = getConnection();
-			PreparedStatement pstmt	=conn.prepareStatement(sql);
+			PreparedStatement pstmt	= conn.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery()){
 			
 			if(rs != null) 
@@ -124,10 +124,10 @@ public class BoardDao {
 		BoardDto dto = null;
 		String sql = "select * from board_tb where board_idx=?";
 			try(Connection conn = getConnection();
-			PreparedStatement pstmt	=conn.prepareStatement(sql)){
+			PreparedStatement pstmt	= conn.prepareStatement(sql)){
 
 			pstmt.setInt(1, num);
-			ResultSet rs= pstmt.executeQuery();
+			ResultSet rs = pstmt.executeQuery();
 						
 			while(rs.next()){
 				
@@ -201,5 +201,25 @@ public class BoardDao {
 		return count;
 	}
 	
-
+	public int replyNum(int num) { //댓글수
+		
+		int replyNum = 0;
+		String sql = "select count(*) from (SELECT * FROM reply_tb where board_idx=?)";
+		
+		try(Connection conn = getConnection();
+			PreparedStatement pstmt	= conn.prepareStatement(sql)){
+				
+			pstmt.setInt(1, num);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			if(rs != null) 
+				rs.next();
+			
+			replyNum = rs.getInt(1);
+				
+		}catch(Exception e){ e.printStackTrace(); }
+			
+		return replyNum;
+	}
 }
