@@ -31,6 +31,13 @@
     #header{
     	text-align:center;
 	}
+	h1, p{
+		font-family:Jua;
+		text-shadow:-1px 0 1px gray, 0 1px 1px gray, 1px 0 1px gray, 0 -1px 1px gray;
+	}
+	a.nav-link{ 
+		font-family:Jua;
+	}
     h3{ 
 		text-align:right;
 		font-size:12px;
@@ -124,8 +131,8 @@
 		
         <div class="container">
           <div class="carousel-caption text-start">
-            <h1>신선한 농산품을 직거래로</h1>
-            <p>믿을 수 있는 농부가 직접 판매하는 농산품을 일대일로 구매하세요.</p>
+            <h1>신선한 농산물을 직거래로</h1>
+            <p>믿을 수 있는 농부가 직접 판매하는 농산물을 일대일로 구매하세요.</p>
             <p><a class="btn btn-lg btn-success" href="#">판매&홍보 게시판</a></p>
           </div>
         </div>

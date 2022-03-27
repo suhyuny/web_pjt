@@ -99,7 +99,7 @@
 		</tbody>
 	</table>
 	<div class="d-grid gap-2 d-md-block" id="write_div">
-		<button type="button" id="withdraw_btn" class="btn btn-outline-secondary btn-sm" onclick="location.href='.jsp'">회원탈퇴</button>
+		<button type="button" id="withdraw_btn" class="btn btn-outline-secondary btn-sm" onclick="location.href='withdrawal.jsp'">회원탈퇴</button>
 		<button type="button" id="pwchange_btn" class="btn btn-success" onclick="location.href='pwEdit.jsp'">비밀번호 변경</button>
 		<button type="button" id="myedit_btn" class="btn btn-success" onclick="location.href='myEdit.jsp'">내 정보 수정</button>
 	</div>

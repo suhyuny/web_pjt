@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url(https://fonts.google.com/specimen/Hahmlet?query=hahmlet);
 /* GLOBAL STYLES
 -------------------------------------------------- */
 /* Padding below the footer and lighter body text */
@@ -91,3 +92,13 @@ body {
     margin-top: 7rem;
   }
 }
+@font-face{
+	font-family:'Hahmlet';
+	src:url('../css/Hahmlet-VariableFont_wght.ttf') format('truetype');
+}
+@font-face{
+	font-family:'Jua';
+	src:url('../css/Jua-Regular.ttf') format('truetype');
+}
+
+
