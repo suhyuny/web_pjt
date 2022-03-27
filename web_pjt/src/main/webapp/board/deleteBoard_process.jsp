@@ -15,6 +15,7 @@
 	
 	try{
 		String boardIdx = request.getParameter("boardIdx");
+		dao.deleteReply(Integer.parseInt(boardIdx));
 		dao.delete(Integer.parseInt(boardIdx));
 	}catch(Exception e){e.printStackTrace();}
     

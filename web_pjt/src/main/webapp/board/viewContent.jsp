@@ -154,11 +154,8 @@
 	String pageNum = request.getParameter("pageNum");
 	int boardIdx = Integer.parseInt(request.getParameter("boardIdx"));
 	dao.updateHits(boardIdx);
+	dao.replyNum(boardIdx);
 	dto = dao.getPost(boardIdx);
-	
-	int replyNum = 0;
-	replyNum = dao.replyNum(boardIdx);
-	dto.setBoardReply(replyNum);
 	
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	String boardDate = sdf.format(dto.getBoardDate());
@@ -206,6 +203,8 @@
 				List<ReplyDto> replyList = null;
 			
 				replyList = replyDao.getReply(boardIdx);
+				
+			
 				for(int i=0; i<replyList.size(); i++){
 				   replyDto = (ReplyDto) replyList.get(i);
 				   String replyDate = sdf.format(replyDto.getReplyDate());
@@ -229,9 +228,9 @@
 					</tr>
 					
 <%				}//for문의 닫힘 괄호	
-%>
-				</tbody>
+%>				</tbody>
 			</table>
+
 <%		if(id != null || id == "undefined"){
 %>			<div class="input-group mb-3">
 				<input type="hidden" id="replyWriter" name="replyWriter" value="<%= name%>">

@@ -27,6 +27,10 @@
 		#pNLink:hover, #next:hover, #prev:hover{
 			color:black;
 		}
+		b{
+			font-size:11pt;
+			color:#198754;
+		}
 	</style>
  
 <title>자유 게시판 :: K-농부 커뮤니티</title>
@@ -113,15 +117,17 @@
 <%					for(int i=0; i<articleList.size(); i++){
 						dto = (BoardDto) articleList.get(i);
 						String boardDate = sdf.format(dto.getBoardDate());
-						/*int boardIdx = Integer.parseInt(request.getParameter("boardIdx"));
-						int replyNum = 0;
-						replyNum = dao.replyNum(boardIdx);
-						dto.setBoardReply(replyNum);
-						dto = dao.getPost(boardIdx);*/
-					   
 %>						
 						<tr>
-							<td><a href="viewContent.jsp?boardIdx=<%=dto.getBoardIdx() %>&pageNum=<%= currPageNum%>"><%=dto.getBoardSbj() %></a></td>
+							<td><a href="viewContent.jsp?boardIdx=<%=dto.getBoardIdx() %>&pageNum=<%= currPageNum%>"><%=dto.getBoardSbj() %></a><b>
+<%
+						int boardReply = dto.getBoardReply();
+						if(boardReply > 0){
+%>
+						 [<%=boardReply %>]
+<% 						}
+%>
+						</b></td>
 							<td style="font-size:10pt;"><%=dto.getBoardWriter() %></td>
 							<td style="font-size:10pt;"><%=dto.getBoardHits() %></td>
 							<td style="font-size:10pt;"><%=boardDate %></td>
@@ -143,7 +149,15 @@
 				   String boardDate = sdf.format(dto.getBoardDate());
 %>
 					<tr>
-						<td><a href="viewContent.jsp?boardIdx=<%=dto.getBoardIdx() %>&pageNum=<%= currPageNum%>"><%=dto.getBoardSbj() %></a></td>
+						<td><a href="viewContent.jsp?boardIdx=<%=dto.getBoardIdx() %>&pageNum=<%= currPageNum%>"><%=dto.getBoardSbj() %></a><b>
+<%
+						int boardReply = dto.getBoardReply();
+						if(boardReply > 0){
+%>
+						 [<%=boardReply %>]
+<% 						}
+%>
+						</b></td>
 						<td style="font-size:10pt;"><%=dto.getBoardWriter() %></td>
 						<td style="font-size:10pt;"><%=dto.getBoardHits() %></td>
 						<td style="font-size:10pt;"><%=boardDate %></td>

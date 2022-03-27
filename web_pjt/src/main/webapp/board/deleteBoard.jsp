@@ -18,6 +18,11 @@
 		#a{
 			margin-top:30px;
 		}
+		h2{
+			margin:auto;
+			margin-top:50px;
+			width:500px;
+		}
 	</style>
 
 <jsp:useBean id ="dao" class="member.BoardDao"/>
@@ -37,7 +42,7 @@
 <% 	
 	if(id.equals(dto.getBoardId())){
 %>
-	<h2 style="width:500px; margin:auto;">정말 게시글을 삭제하시겠습니까?</h2>
+	<h2>정말 게시글을 삭제하시겠습니까?</h2>
 	<form method="post" action="deleteBoard_process.jsp">
 	<input type="hidden" name="boardIdx" value="<%=request.getParameter("boardIdx") %>"/>
 		<div class="gap-2 d-md-block" style="margin-top:30px;">

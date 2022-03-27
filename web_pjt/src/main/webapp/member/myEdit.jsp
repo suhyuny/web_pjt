@@ -11,6 +11,56 @@
 		  integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" 
 		  crossorigin="anonymous">
 	<link rel="stylesheet" href="../css/board_css.css">
+	<script>
+		function editForm_check(){
+			var mName = document.getElementById("mName");
+			var mPhone = document.getElementById("mPhone");
+			var mAddr = document.getElementById("mAddr");
+			var mEmail = document.getElementById("mEmail");
+			
+			if (mName.value == "") {
+			    alert("성함을 입력하세요.");
+			    mName.focus();
+			    return false;
+			}
+			
+			var phoneCheck = /^\d{3}-\d{4}-\d{4}$/;
+			  
+			if(mPhone.value==""){
+				alert("연락처를 입력하세요.");
+				mPhone.focus();
+				return false;
+			}
+			
+			if(!phoneCheck.test(mPhone.value)){
+				alert("연락처 형식이 올바르지 않습니다.");
+				mPhone.focus();
+				return false;
+			}
+			
+			if (mAddr.value == "") {
+				alert("주소를 입력하세요.");
+				mAddr.focus();
+				return false;
+			}
+			  
+			var exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+			
+			if (!exptext.test(mEmail.value)) {
+			    alert("이메일 형식이 올바르지 않습니다.");
+			    mEmail.focus();
+			    return false;
+			}
+			
+			if (mEmail.value == "") {
+				alert("이메일 주소를 입력하세요.");
+				mEmail.focus();
+				return false;
+			}
+			
+			document.editForm.submit();
+		}
+	</script>
 	<style>
 	table{
 		text-align:left;
@@ -42,25 +92,25 @@
 	<input type="hidden" name="memberId" value="<%=rs.getString("member_id") %>"> 
 	<table class="table">
 		<tbody>
-			<tr><!-- 원래 정보가 input태그 안에 들어가있게 하기 -->
+			<tr>
 				<th scope="row" width="35%">아이디</th>
 				<td><%=rs.getString("member_id") %></td>
 			</tr>
 			<tr>
 				<th scope="row">이름</th>
-				<td><input type="text" class="form-control form-control-sm" name="memberName" value="<%=rs.getString("member_name") %>"></td>
+				<td><input type="text" id="mName" class="form-control form-control-sm" name="memberName" value="<%=rs.getString("member_name") %>"></td>
 			</tr>
 			<tr>
 				<th scope="row">연락처</th>
-				<td><input type="text" class="form-control form-control-sm" name="memberPhone" value="<%=rs.getString("member_phone") %>"></td>
+				<td><input type="text" id="mPhone" class="form-control form-control-sm" name="memberPhone" value="<%=rs.getString("member_phone") %>" placeholder="000-0000-0000 형식으로 입력해주세요."></td>
 			</tr> 
 			<tr>
 				<th scope="row">주소</th>
-				<td><input type="text" class="form-control form-control-sm" name="memberAddr" value="<%=rs.getString("member_addr") %>"></td>
+				<td><input type="text" id="mAddr" class="form-control form-control-sm" name="memberAddr" value="<%=rs.getString("member_addr") %>"></td>
 			</tr>   
 			<tr>
 				<th scope="row">이메일</th>
-				<td><input type="email" class="form-control form-control-sm" name="memberEmail" value="<%=rs.getString("member_email") %>"></td>
+				<td><input type="email" id="mEmail" class="form-control form-control-sm" name="memberEmail" value="<%=rs.getString("member_email") %>"></td>
 			</tr>
 			<tr>
 				<th scope="row">이메일 광고 수신 동의</th>
@@ -98,7 +148,7 @@
 		</tbody>
 	</table>
 	<div id="write_div">
-		<button type="submit" id="myedit_btn" class="btn btn-success">수정하기</button>
+		<button type="button" id="myedit_btn" class="btn btn-success" onclick="editForm_check()">수정하기</button>
 	</div>
 	</form>
 

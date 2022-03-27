@@ -179,6 +179,18 @@ public class BoardDao {
 		}catch(Exception e){e.printStackTrace();}
 	}
 	
+	public void deleteReply(int boardIdx){ //게시글 삭제
+		String sql = "DELETE FROM REPLY_TB WHERE board_idx=?";
+		try(Connection conn = getConnection();
+			PreparedStatement pstmt	= conn.prepareStatement(sql)){
+		
+		pstmt.setInt(1, boardIdx);
+	
+        pstmt.executeUpdate();
+        
+		}catch(Exception e){e.printStackTrace();}
+	}
+	
 	
 	public int searchCount(String searchOption, String searchInput){ //검색한 글의 개수
 		int count = 0;
@@ -201,25 +213,19 @@ public class BoardDao {
 		return count;
 	}
 	
-	public int replyNum(int num) { //댓글수
+	public void replyNum(int num) { //댓글수
 		
-		int replyNum = 0;
-		String sql = "select count(*) from (SELECT * FROM reply_tb where board_idx=?)";
+		String sql = "update board_tb SET BOARD_REPLY = (select count(*) from (SELECT * FROM reply_tb where board_idx=?)) WHERE BOARD_IDX=?";
 		
 		try(Connection conn = getConnection();
 			PreparedStatement pstmt	= conn.prepareStatement(sql)){
-				
+		
 			pstmt.setInt(1, num);
+			pstmt.setInt(2, num);
 			
-			ResultSet rs = pstmt.executeQuery();
-			
-			if(rs != null) 
-				rs.next();
-			
-			replyNum = rs.getInt(1);
-				
-		}catch(Exception e){ e.printStackTrace(); }
-			
-		return replyNum;
+	        pstmt.executeUpdate();
+        
+		}catch(Exception e){e.printStackTrace();}
 	}
+	
 }
